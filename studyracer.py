@@ -2,7 +2,7 @@ from bottle import redirect, route, run, error, template, request, static_file, 
 import json
 from random import choice
 
-userLoggedIn = True
+userLoggedIn = False
 
 @route("/", userLoggedIn=userLoggedIn)
 def user_logged_in():
