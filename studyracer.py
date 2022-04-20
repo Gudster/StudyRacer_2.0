@@ -1,6 +1,8 @@
 from bottle import redirect, route, run, error, template, request, static_file, redirect
-import json
+import psycopg2
+from psycopg2 import Error
 from random import choice
+import json
 
 userLoggedIn = False
 
@@ -24,6 +26,44 @@ def race(text):
         myFile.close()
 
     return template("racepage", textFile=TTR, userLoggedIn=userLoggedIn)
+
+@route("/", method="POST")
+def sign_up():
+
+    try:
+        userName = getattr(request.forms, "userName")
+        firstName = getattr(request.forms, "firstName")
+        lastName = getattr(request.forms, "lastName")
+        password = getattr(request.forms, "password")
+        country = getattr(request.forms, "country")
+
+
+
+        conn = psycopg2.connect(database="am0986",
+                                user='am0986',
+                                password='j6uv3f3d',
+                                host='pgserver.mau.se',
+                                port= '5432')
+
+        conn.autocommit = True
+        cursor = conn.cursor()
+
+        cursor.execute(f'''INSERT INTO user_info(username, f_name, l_name, p_word, country)
+        VALUES ('{userName}', '{firstName}', '{lastName}', '{password}', '{country}')''')
+
+        conn.commit()
+        print(f"\n{userName}, {firstName}, {lastName}, {country} registrerad")
+
+    except (Exception, Error) as error:
+        print("\nRegistrering misslyckades")
+        print(error)
+            
+    finally:
+        if (conn):
+            cursor.close()
+            conn.close()
+            return template("index", userLoggedIn=True)
+
 
 @route("/racetext/")
 def make_text_to_race ():
