@@ -37,8 +37,6 @@ def sign_up():
         password = getattr(request.forms, "password")
         country = getattr(request.forms, "country")
 
-
-
         conn = psycopg2.connect(database="am0986",
                                 user='am0986',
                                 password='j6uv3f3d',

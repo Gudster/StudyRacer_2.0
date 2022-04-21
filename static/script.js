@@ -11,12 +11,18 @@ let appendTotalmin = document.getElementById("setMin");
 
 let int = null;
 
+let totalMin = localStorage.getItem('storeMin');
+let totalSec = localStorage.getItem('storeSec');
+let totalWords = localStorage.getItem('storeWords');
+let calculatedTime = totalMin * 60 + + totalSec;
+let wordsPerMinute = Math.trunc(totalWords / (calculatedTime / 60));
+
 // Retrieve the object from storage
 
 
 var strokeCount = 0;
 
-document.getElementById("resultwpm").innerHTML = wordsPerMinute;
+document.getElementById('resultwpm').innerHTML = wordsPerMinute;
 document.getElementById('totalMin').innerHTML = totalMin + "m "
 document.getElementById('totalSec').innerHTML = totalSec + "s"
 

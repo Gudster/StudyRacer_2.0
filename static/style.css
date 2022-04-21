@@ -71,13 +71,13 @@ body {
 
 /* Style the front side (fallback if image is missing) */
 .flip-card-front {
-    background-color: #bbb;
+    background-color: rgb(214, 214, 214);
     color: black;
 }
 
 /* Style the back side */
 .flip-card-back {
-    background-color: rgb(99, 99, 99);
+    background-color: rgb(189, 189, 189);
     color: white;
     transform: rotateY(180deg);
 }
@@ -85,4 +85,9 @@ body {
 #custom-race-modal {
     border-top: none;
     padding: 0;
+}
+
+#book, #keyboard {
+    width: 400px;
+    height: 300px;
 }

@@ -1,10 +1,4 @@
 
-let totalMin = localStorage.getItem('storeMin');
-let totalSec = localStorage.getItem('storeSec');
-let totalWords = localStorage.getItem('storeWords');
-let calculatedTime = totalMin * 60 + + totalSec;
-let wordsPerMinute = Math.trunc(totalWords / (calculatedTime / 60));
-
 const ctxAcc = document.getElementById('myChartAcc');
 const myChartAcc = new Chart(ctxAcc, {
     type: 'bar',
