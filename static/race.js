@@ -99,7 +99,7 @@ messageEle.addEventListener('input', function (e) {
 function countWords() {
 
 	// Get the input text value
-	let inputText = document.getElementById("input").value;
+	let text = document.getElementById("input").value;
 
 	// Initialize the word counter
 	var numWords = 0;
