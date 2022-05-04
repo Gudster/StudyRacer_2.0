@@ -13,17 +13,30 @@ def user_logged_in():
 
 @route("/racepage/<text>", userLoggedIn=userLoggedIn)
 def race(text):
-    if text != "dinosaur1":
-        my_file = open(f"articles/{text}.json", "r")
+    if text == "beginner":
+        my_file= open("article/beginner.json", "r")
+        textToRace = my_file.read()
+        TTR = json.loads(textToRace)
+        my_file.close()
+    
+    elif text == "novice":
+        my_file = open("articles/novice.json", "r")
+        textToRace = my_file.read()
+        TTR = json.loads(textToRace)
+        my_file.close()
+    
+    elif text == "master":
+        my_file = open("articles/master.json", "r")
         textToRace = my_file.read()
         TTR = json.loads(textToRace)
         my_file.close()
     
     else:    
-        with open("articles/dinosaur1.json") as myFile:
-            content = json.loads(myFile.read())
-        TTR = choice(content)
-        myFile.close()
+        my_file = open(f"articles/{text}.json", "r")
+        textToRace = my_file.read()
+        TTR = json.loads(textToRace)
+        my_file.close() 
+        
 
     return template("racepage", textFile=TTR, userLoggedIn=userLoggedIn)
 
