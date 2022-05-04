@@ -27,6 +27,11 @@ def race(text):
 
     return template("racepage", textFile=TTR, userLoggedIn=userLoggedIn)
 
+@route("/racepage2/", userLoggedin=userLoggedIn)
+def race2():
+    
+    return template("racepage2", userLoggedIn=userLoggedIn)
+
 @route("/", method="POST")
 def sign_up():
 

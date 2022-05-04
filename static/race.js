@@ -22,6 +22,9 @@ let wordsPerMinute = Math.trunc(totalWords / (calculatedTime / 60));
 
 var strokeCount = 0;
 
+//let wordsPerMinuteUpdater = Math.trunc(writtenTextArray / (sec / 60));
+
+
 
 console.log('Minuter: ', JSON.parse(totalMin));
 console.log('Sekunder: ', JSON.parse(totalSec));
@@ -203,6 +206,10 @@ messageEle.addEventListener('input', function (e) {
 		document.forms["myForm"].submit();
 	}
 }); 
+
+//function wordsPerMinuteUpdater() {
+    //document.getElementById("wpmUpdater").innerHTML = wordsPerMinuteUpdater;
+//};
 
 // If user input is correct, mark the letter green, if incorrect, mark the letter red
 function mark_letters(){}
