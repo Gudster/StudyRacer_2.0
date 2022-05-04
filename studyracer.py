@@ -4,7 +4,7 @@ from psycopg2 import Error
 from random import choice
 import json
 
-userLoggedIn = False
+userLoggedIn = True
 
 @route("/", userLoggedIn=userLoggedIn)
 def user_logged_in():
@@ -13,10 +13,10 @@ def user_logged_in():
 
 @route("/racepage/<text>", userLoggedIn=userLoggedIn)
 def race(text):
-    if text!= "dinosaur1":
-        my_file=open(f"articles/{text}.json", "r")
-        textToRace=my_file.read()
-        TTR=json.loads(textToRace)
+    if text != "dinosaur1":
+        my_file = open(f"articles/{text}.json", "r")
+        textToRace = my_file.read()
+        TTR = json.loads(textToRace)
         my_file.close()
     
     else:    
@@ -41,7 +41,7 @@ def sign_up():
                                 user='am0986',
                                 password='j6uv3f3d',
                                 host='pgserver.mau.se',
-                                port= '5432')
+                                port='5432')
 
         conn.autocommit = True
         cursor = conn.cursor()
