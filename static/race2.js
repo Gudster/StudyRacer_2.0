@@ -4,13 +4,14 @@
 const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random'
 const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
-const timerElement = document.getElementById('timer')
+const timerElement = document.getElementById('timer2')
 
 quoteInputElement.addEventListener('input', () => {
   const arrayQuote = quoteDisplayElement.querySelectorAll('span')
   const arrayValue = quoteInputElement.value.split('')
 
   let correct = true
+  
   arrayQuote.forEach((characterSpan, index) => {
     const character = arrayValue[index]
     if (character == null) {
@@ -26,9 +27,10 @@ quoteInputElement.addEventListener('input', () => {
       correct = false
     }
   })
-
-  if (correct) renderNewQuote()
+  if (correct) document.forms['myForm'].submit()
 })
+
+
 
 function getRandomQuote() {
   return fetch(RANDOM_QUOTE_API_URL)
@@ -45,20 +47,41 @@ async function renderNewQuote() {
     quoteDisplayElement.appendChild(characterSpan)
   })
   quoteInputElement.value = null
-  startTimer()
+  
 }
 
-let startTime
-function startTimer() {
-  timerElement.innerText = 0
-  startTime = new Date()
-  setInterval(() => {
-    timer.innerText = getTimerTime()
-  }, 1000)
-}
+const userInput = document.getElementById('quoteInput');
 
-function getTimerTime() {
-  return Math.floor((new Date() - startTime) / 1000)
-}
+// Check if last word is equal to the last word of the text and the amount of words are the same, 
+// if it is, submit the text. 
+userInput.addEventListener('input', function (e){
+//	if(event.code === 'Space'){
+    console.log("din text: " + userInput.value)
+    // Split the written text into an array, space makes new arrayitem
+    let writtenTextArray = userInput.value.split(" ")
+    // Check the last word of the array
+    let writtenTextLastWord = writtenTextArray.pop();
+    // count the amount of arrayitems
+    const writtenTextLength = writtenTextArray.length;
+
+    console.log(writtenTextArray)
+    console.log(writtenTextLastWord)
+    console.log("length quoteInput: " + writtenTextLength)
+
+    // get the text the user is supposed to race
+    const raceText = quoteInputElement.value.split()
+    // Split the text into an array
+    //const raceTextArray = raceText.split(" ");
+    // Check the last word of the array
+    //const raceTextLastWord = raceTextArray.pop();
+    // Count the amount of arrayitems
+    //const raceTextLength = raceTextArray.length;
+    console.log("Racetext: " + raceText)
+
+
+    //if (raceTextArray[index] === writtenTextArray[index]){
+    //  quoteInput.value=""
+    //}
+})
 
 renderNewQuote()

@@ -6,7 +6,7 @@ var min = 00;
 var appendMin = document.getElementById("min");
 var appendSec = document.getElementById("sec");
 var appendMiliSec = document.getElementById("miliSec");
-var pressToStart = document.getElementById("input");
+var pressToStart = document.getElementById("quoteInput");
 let appendTotalmin = document.getElementById("setMin");
 
 let int = null;
@@ -38,7 +38,7 @@ console.log('Knapptryck: ');
 
 function timer_main() {
 	//Om användaren trycker på någon tangent startar timern
-	document.getElementById('input').addEventListener('keydown', event=>{
+	document.getElementById('quoteInput').addEventListener('keydown', event=>{
 		if(event.int !== null){
 			clearInterval(int);
 		}
@@ -46,7 +46,7 @@ function timer_main() {
 	});
 
 	// Om användaren trycker på "Escape" så pausas timern
-	document.getElementById('input').addEventListener('keydown', event=>{
+	document.getElementById('quoteInput').addEventListener('keydown', event=>{
 		if(event.key === "Escape"){
 			clearInterval(int);
 			countWords();
@@ -70,10 +70,9 @@ function submit_button_save() {
 	localStorage.setItem('storeWords', JSON.stringify(storeTotalWords));
 }
 
-document.getElementById('input').addEventListener('keydown', event=>{
+document.getElementById('quoteInput').addEventListener('keydown', event=>{
 	if(event.code === 'Space'){
-		countWords();
-
+		//countWords();
 	}
 });
 
@@ -84,10 +83,10 @@ function total_time(){
 
 };
 
-const messageEle = document.getElementById('input');
+const messageEle = document.getElementById('quoteInput');
 const counterEle = document.getElementById('count');
 
-messageEle.addEventListener('input', function (e) {
+messageEle.addEventListener('quoteInput', function (e) {
     const target = e.target;
 
     // Get the `maxlength` attribute
@@ -99,10 +98,10 @@ messageEle.addEventListener('input', function (e) {
     counterEle.innerHTML = `${currentLength}`;
 });
 
-function countWords() {
+/*function countWords() {
 
-	// Get the input text value
-	let text = document.getElementById("input").value;
+	// Get the quoteInput text value
+	let text = document.getElementById("quoteInput").value;
 
 	// Initialize the word counter
 	var numWords = 0;
@@ -130,6 +129,7 @@ function countWords() {
 	document.getElementById("show")
 		.innerHTML = numWords;
 }
+*/
 
 function start_timer(){
 // Funktion som räknar tid och ökar värden vid angivna gränser
@@ -175,7 +175,7 @@ function start_timer(){
 
 // Check if last word is equal to the last word of the text and the amount of words are the same, 
 // if it is, submit the text. 
-messageEle.addEventListener('input', function (e) {
+messageEle.addEventListener('quoteInput', function (e) {
 	console.log("din text: " + messageEle.value)
 	// Split the written text into an array, space makes new arrayitem
 	let writtenTextArray = messageEle.value.split(" ")
@@ -186,7 +186,7 @@ messageEle.addEventListener('input', function (e) {
 
 	console.log(writtenTextArray)
 	console.log(writtenTextLastWord)
-	console.log("length input: " + writtenTextLength)
+	console.log("length quoteInput: " + writtenTextLength)
 
 	// get the text the user is supposed to race
 	const raceText = document.getElementById("text").value
@@ -211,5 +211,5 @@ messageEle.addEventListener('input', function (e) {
     //document.getElementById("wpmUpdater").innerHTML = wordsPerMinuteUpdater;
 //};
 
-// If user input is correct, mark the letter green, if incorrect, mark the letter red
+// If user quoteInput is correct, mark the letter green, if incorrect, mark the letter red
 function mark_letters(){}
