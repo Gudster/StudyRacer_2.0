@@ -97,7 +97,7 @@ body {
 
   }
   
-  .quote-input {
+.quote-input {
     background-color: rgb(220, 220, 220);
     border: 2px solid #A1922E;
     outline: none;
@@ -110,24 +110,31 @@ body {
     border-radius: .5rem;
   }
   
-  .quote-input:focus {
+.quote-input:focus {
     border-color: white;
   }
   
-  .correct {
-    color: green;
+.correct {
+    color: #8cce6e;
   }
   
-  .incorrect {
-    color: red;
+.incorrect {
+    color: #df5959;
     text-decoration: underline;
   }
 
-  .unselectable {
+.unselectable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.inputIncorrect {
+    background-color: #df5959;
+}
+.inputCorrect {
+    background-color: blue;
 }

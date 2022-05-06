@@ -72,7 +72,9 @@ def sign_up():
 
     except (Exception, Error) as error:
         print("\nRegistrering misslyckades")
+        print("-"*30)
         print(error)
+        print("-"*30)
             
     finally:
         if (conn):
@@ -80,6 +82,42 @@ def sign_up():
             conn.close()
             return template("index", userLoggedIn=True)
 
+@route("/", method="POST")
+def log_in():
+    
+    try:
+        userName = getattr(request.forms, "userName")
+        password = getattr(request.forms, "password")
+
+        conn = psycopg2.connect(database="am0986",
+                                user='am0986',
+                                password='j6uv3f3d',
+                                host='pgserver.mau.se',
+                                port='5432')
+
+        
+        cursor = conn.cursor()
+        cursor.execute(f'''SELECT name, password FROM admin WHERE username = '{userName}' and password = '{password}' ''')
+        userNameChecker = cursor.fetchone()[0]
+        
+        if userName == userNameChecker:
+            print("\nInloggad!")
+        else:
+            print("Felaktigt inlogg")
+
+        conn.commit()
+            
+    except (Exception, Error) as error:
+        print("Inloggning misslyckades")
+        print("-"*30)
+        print(error)
+        print("-"*30)
+
+    finally:
+        if (conn):
+            cursor.close()
+            conn.close()
+            return template("index", userLoggedIn=True)
 
 @route("/racetext/")
 def make_text_to_race ():

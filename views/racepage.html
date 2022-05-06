@@ -61,6 +61,16 @@
                                 <div class="quote-display unselectable" id="quoteDisplay"></div>
                                 <input id="quoteInput" class="quote-input" onkeydown="timer_main()" autofocus autocapitalize="false" spellcheck="false"></input>
                             </div>
+                            <!-- GAMMAL TEXT AREA-->
+                            <div class="row">
+                                <div class="">
+                                    <textarea id="text" class="form-control text-start p-2 shadow-lg" rows="5" name="raceText" aria-label="Disabled input example" spellcheck="false" readonly>{{textFile}}</textarea>
+                                </div>
+                                <div>
+                                    <textarea id="input" class="form-control mt-4 p-2 shadow-lg" onclick="timer_main()" rows="5" name="userRaceInput" placeholder="Type here..." spellcheck="false"></textarea>
+                                </div>
+                            </div>
+
                             <div id="timer" class="position-relative mb-4 text-white">
                                 <div class="list-inline-item position-absolute start-0">
                                     <p>Characters: 

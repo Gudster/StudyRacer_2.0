@@ -21,16 +21,16 @@ quoteInputElement.addEventListener('input', () => {
     } else if (character === characterSpan.innerText) {
       characterSpan.classList.add('correct')
       characterSpan.classList.remove('incorrect')
+      quoteInputElement.classList.remove('inputIncorrect')
     } else {
       characterSpan.classList.remove('correct')
       characterSpan.classList.add('incorrect')
+      quoteInputElement.classList.add('inputIncorrect')
       correct = false
     }
   })
   if (correct) document.forms['myForm'].submit()
 })
-
-
 
 function getRandomQuote() {
   return fetch(RANDOM_QUOTE_API_URL)
@@ -40,48 +40,62 @@ function getRandomQuote() {
 
 async function renderNewQuote() {
   const quote = await getRandomQuote()
+  localStorage.setItem("myQuote", quote) //egen
   quoteDisplayElement.innerHTML = ''
   quote.split('').forEach(character => {
     const characterSpan = document.createElement('span')
     characterSpan.innerText = character
     quoteDisplayElement.appendChild(characterSpan)
   })
-  quoteInputElement.value = null
+    quote.split(' ').forEach((word, index) => {
+      const wordSpan = [word, index]
+      
+      console.log(wordSpan)
+      
+    })
+    
+    quoteInputElement.value = null;
+    
+  }
   
-}
+const inputValue = document.getElementById('quoteInput');
+const raceText = document.getElementById('quoteDisplay');
+console.log(raceText)
 
-const userInput = document.getElementById('quoteInput');
-
-// Check if last word is equal to the last word of the text and the amount of words are the same, 
-// if it is, submit the text. 
-userInput.addEventListener('input', function (e){
-//	if(event.code === 'Space'){
-    console.log("din text: " + userInput.value)
-    // Split the written text into an array, space makes new arrayitem
-    let writtenTextArray = userInput.value.split(" ")
-    // Check the last word of the array
-    let writtenTextLastWord = writtenTextArray.pop();
-    // count the amount of arrayitems
-    const writtenTextLength = writtenTextArray.length;
-
-    console.log(writtenTextArray)
-    console.log(writtenTextLastWord)
-    console.log("length quoteInput: " + writtenTextLength)
-
-    // get the text the user is supposed to race
-    const raceText = quoteInputElement.value.split()
-    // Split the text into an array
-    //const raceTextArray = raceText.split(" ");
-    // Check the last word of the array
-    //const raceTextLastWord = raceTextArray.pop();
-    // Count the amount of arrayitems
-    //const raceTextLength = raceTextArray.length;
-    console.log("Racetext: " + raceText)
-
-
-    //if (raceTextArray[index] === writtenTextArray[index]){
-    //  quoteInput.value=""
-    //}
+inputValue.addEventListener('input', function (e) {
+  inputArray = inputValue.value.split(" ")
+  
+  inputValue.addEventListener('keydown', event=>{
+    if(event.code === 'Space'){
+      inputArray = inputValue.value.split(" ")
+    }
+  })
+  console.log(inputArray)
 })
 
-renderNewQuote()
+const myQuoteSplit = localStorage.getItem("myQuote").split(' ')
+//arrayWords.forEach((wordsValue))
+  //const words = wordsValue[index]
+  const inputWords = quoteInputElement.value.split(' ')
+  console.log(inputWords)
+
+  /*arrayQuote.forEach((characterSpan, index) => {
+    const character = arrayValue[index]
+    if (character == null) {
+      characterSpan.classList.remove('correct')
+      characterSpan.classList.remove('incorrect')
+      correct = false
+    } else if (character === characterSpan.innerText) {
+      characterSpan.classList.add('correct')
+      characterSpan.classList.remove('incorrect')
+      quoteInputElement.classList.remove('inputIncorrect')
+    } else {
+      characterSpan.classList.remove('correct')
+      characterSpan.classList.add('incorrect')
+      quoteInputElement.classList.add('inputIncorrect')
+      correct = false
+    }
+  })*/
+
+  
+  renderNewQuote()
