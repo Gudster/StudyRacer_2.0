@@ -84,7 +84,7 @@ def sign_up():
 
 @route("/", method="POST")
 def log_in():
-    
+
     try:
         userName = getattr(request.forms, "userName")
         password = getattr(request.forms, "password")
