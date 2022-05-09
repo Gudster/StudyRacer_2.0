@@ -71,6 +71,8 @@ def sign_up():
 
         conn.commit()
         print(f"\n{userName}, {firstName}, {lastName}, {country} registrerad")
+        sign_up = True
+        userLoggedIn = True
 
     except (Exception, Error) as error:
         print("\nRegistrering misslyckades")
@@ -82,7 +84,46 @@ def sign_up():
         if (conn):
             cursor.close()
             conn.close()
-            return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up )
+
+            return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up)
+'''
+@route("/", method="POST")
+def log_in():
+    
+    try:
+        userName = getattr(request.forms, "userName")
+        password = getattr(request.forms, "password")
+
+        conn = psycopg2.connect(database="am0986",
+                                user='am0986',
+                                password='j6uv3f3d',
+                                host='pgserver.mau.se',
+                                port='5432')
+
+        
+        cursor = conn.cursor()
+        cursor.execute(f''' '''SELECT name, password FROM admin WHERE username = '{userName}' and password = '{password}' ''''''
+        userNameChecker = cursor.fetchone()[0]
+        
+        if userName == userNameChecker:
+            print("\nInloggad!")
+        else:
+            print("Felaktigt inlogg")
+
+        conn.commit()
+            
+    except (Exception, Error) as error:
+        print("Inloggning misslyckades")
+        print("-"*30)
+        print(error)
+        print("-"*30)
+
+    finally:
+        if (conn):
+            cursor.close()
+            conn.close()
+            return template("index", userLoggedIn=True)'''
+
 
 
 @route("/profile")
