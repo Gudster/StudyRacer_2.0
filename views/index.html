@@ -35,7 +35,7 @@
                         </a>
 
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Sign out</a></li>
                         </ul>
@@ -127,8 +127,12 @@
                     </div>
                 </div>
             </article>
+
             
             % else:
+            
+            
+        
             <article class="container col-lg-10 p-5">
                 <!--Scrollable modal-->
                 <div class="modal fade text-white text-start" id="loginModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" style="display: none;" aria-hidden="true">
@@ -143,16 +147,18 @@
                                 <div class="row justify-content-center">
                                     <div class="text-white">
                                         <div class="mb-3">
-                                            <label for="formGroupExampleInput" class="form-label">Username</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Please enter your username!">
+                                            <form>
+                                                <label for="formGroupExampleInput" class="form-label">Username</label>
+                                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Please enter your username!">
                                         
-                                            <div class="mb-3">
-                                                <label for="formGroupExampleInput2" class="form-label">Password</label>
-                                                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Please enter your password!">
+                                                <div class="mb-3">
+                                                    <label for="formGroupExampleInput2" class="form-label">Password</label>
+                                                    <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Please enter your password!">
                                                 <div id="custom-race-modal" class="modal-footer">
                                                     <input type="submit" id="button-loog_in" class="btn btn-success m-0" value="Log in">                    
             
                                                 </div>
+                                            </form>
                                             </div>
                                         </div>
                                     </div>
@@ -160,7 +166,8 @@
                             </div>
                         </div>
                     </div>
-                </div>                                        
+                </div>  
+                                                  
 
                         
                 <div class="modal fade text-white text-start" id="signupModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" style="display: none;" aria-hidden="true">
@@ -204,18 +211,19 @@
                                             </datalist>
                                         </div>
                                         <div id="custom-race-modal" class="modal-footer">
-                                            <input type="submit" id="button-sign-up" class="btn btn-success m-0" value="Sign up!">                    
+                                            <input type="submit" id="button-sign-up" class="btn btn-success m-0" value="Sign up!">                      
                                         </div>
                                     </div>
                                 
                                 </form>
-                                
 
                             </div>
                         </div>
                     </div>
                 </div>
             </article>
+
+
 
 
             <article class="container col-lg-10 p-5">
@@ -262,6 +270,44 @@
                     </div>
                 </div>
             </article>
+            % end
+
+            % if userLoggedIn == True: 
+            <div class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Registration:</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Registration succeeded!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        
+                    </div>
+                    </div>
+                </div>
+            </div>
+            % else:
+            <div class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Registration:</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Registration declined, Please try again!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        
+                    </div>
+                    </div>
+                </div>
+            </div>
             % end
         </main>
         

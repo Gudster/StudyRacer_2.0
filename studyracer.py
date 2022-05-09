@@ -4,7 +4,9 @@ from psycopg2 import Error
 from random import choice
 import json
 
-userLoggedIn = True
+userLoggedIn = False
+sign_up = False
+userName = " "
 
 @route("/", userLoggedIn=userLoggedIn)
 def user_logged_in():
@@ -40,7 +42,7 @@ def race(text):
 
     return template("racepage", textFile=TTR, userLoggedIn=userLoggedIn)
 
-@route("/racepage2/", userLoggedin=userLoggedIn)
+@route("/racepage2/", userLoggedin=userLoggedIn, sign_up=sign_up)
 def race2():
     
     return template("racepage2", userLoggedIn=userLoggedIn)
@@ -80,44 +82,23 @@ def sign_up():
         if (conn):
             cursor.close()
             conn.close()
-            return template("index", userLoggedIn=True)
+            return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up )
 
-@route("/", method="POST")
-def log_in():
+
+@route("/profile")
+def user_profile(): 
+    global userName 
+    conn = psycopg2.connect(database="am0986",
+                            user='am0986',
+                            password='j6uv3f3d',
+                            host='pgserver.mau.se',
+                            port='5432')
+
     
-    try:
-        userName = getattr(request.forms, "userName")
-        password = getattr(request.forms, "password")
+    cursor = conn.cursor()
+    cursor.execute(f'''SELECT spend_time, wpm, accuracy, race_date FROM race WHERE username = '{userName}' ''')
 
-        conn = psycopg2.connect(database="am0986",
-                                user='am0986',
-                                password='j6uv3f3d',
-                                host='pgserver.mau.se',
-                                port='5432')
-
-        
-        cursor = conn.cursor()
-        cursor.execute(f'''SELECT name, password FROM admin WHERE username = '{userName}' and password = '{password}' ''')
-        userNameChecker = cursor.fetchone()[0]
-        
-        if userName == userNameChecker:
-            print("\nInloggad!")
-        else:
-            print("Felaktigt inlogg")
-
-        conn.commit()
-            
-    except (Exception, Error) as error:
-        print("Inloggning misslyckades")
-        print("-"*30)
-        print(error)
-        print("-"*30)
-
-    finally:
-        if (conn):
-            cursor.close()
-            conn.close()
-            return template("index", userLoggedIn=True)
+    return template("profile")
 
 @route("/racetext/")
 def make_text_to_race ():
