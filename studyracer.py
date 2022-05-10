@@ -4,14 +4,14 @@ from psycopg2 import Error
 from random import choice
 import json
 
-userLoggedIn = False
-sign_up = False
-userName = " "
+userLoggedIn = ""
+sign_up = ""
+userName = ""
 
-@route("/", userLoggedIn=userLoggedIn)
+@route("/")
 def user_logged_in():
 
-    return template("index", userLoggedIn=userLoggedIn)
+    return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName)
 
 @route("/racepage/<text>", userLoggedIn=userLoggedIn)
 def race(text):
@@ -42,7 +42,7 @@ def race(text):
 
     return template("racepage", textFile=TTR, userLoggedIn=userLoggedIn)
 
-@route("/racepage2/", userLoggedin=userLoggedIn, sign_up=sign_up)
+@route("/racepage2/")
 def race2():
     
     return template("racepage2", userLoggedIn=userLoggedIn)
@@ -71,8 +71,7 @@ def sign_up():
 
         conn.commit()
         print(f"\n{userName}, {firstName}, {lastName}, {country} registrerad")
-        sign_up = True
-        userLoggedIn = True
+        
 
     except (Exception, Error) as error:
         print("\nRegistrering misslyckades")
@@ -84,15 +83,16 @@ def sign_up():
         if (conn):
             cursor.close()
             conn.close()
+            userLoggedIn = True
+            sign_up = True
+            return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName)
 
-            return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up)
-'''
 @route("/", method="POST")
 def log_in():
-    
+
     try:
-        userName = getattr(request.forms, "userName")
-        password = getattr(request.forms, "password")
+        logInName = getattr(request.forms, "logInName")
+        #password2 = getattr(request.forms, "password2")
 
         conn = psycopg2.connect(database="am0986",
                                 user='am0986',
@@ -102,10 +102,10 @@ def log_in():
 
         
         cursor = conn.cursor()
-        cursor.execute(f''' '''SELECT name, password FROM admin WHERE username = '{userName}' and password = '{password}' ''''''
+        cursor.execute(f'''SELECT username FROM user_info WHERE username = '{logInName}' ''')
         userNameChecker = cursor.fetchone()[0]
         
-        if userName == userNameChecker:
+        if logInName == userNameChecker:
             print("\nInloggad!")
         else:
             print("Felaktigt inlogg")
@@ -122,8 +122,8 @@ def log_in():
         if (conn):
             cursor.close()
             conn.close()
-            return template("index", userLoggedIn=True)'''
-
+            userLoggedIn = True
+            return template("index", userLoggedIn=userLoggedIn, userName=logInName)
 
 
 @route("/profile")

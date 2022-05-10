@@ -82,6 +82,7 @@
             </div>
             
             <article class="container col-lg-10 p-5">
+                <h2 class="text-white">Välkommen {{ userName }}!</h2>
                 <div class="d-flex justify-content-between text-black">
                     
                         <div class="flip-card">
@@ -149,13 +150,13 @@
                                         <div class="mb-3">
                                             <form>
                                                 <label for="formGroupExampleInput" class="form-label">Username</label>
-                                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Please enter your username!">
+                                                <input name="logInName" type="text" class="form-control" id="formGroupExampleInput" placeholder="Please enter your username!">
                                         
                                                 <div class="mb-3">
                                                     <label for="formGroupExampleInput2" class="form-label">Password</label>
-                                                    <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Please enter your password!">
+                                                    <input name="password2" type="password" class="form-control" id="formGroupExampleInput2" placeholder="Please enter your password!">
                                                 <div id="custom-race-modal" class="modal-footer">
-                                                    <input type="submit" id="button-loog_in" class="btn btn-success m-0" value="Log in">                    
+                                                    <input type="submit" id="logInButton" class="btn btn-success m-0" value="Log in">                    
             
                                                 </div>
                                             </form>
@@ -166,9 +167,7 @@
                             </div>
                         </div>
                     </div>
-                </div>  
-                                                  
-
+                </div>
                         
                 <div class="modal fade text-white text-start" id="signupModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" style="display: none;" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
@@ -272,45 +271,6 @@
             </article>
             % end
 
-            % if sign_up == True:
-            <div class="modal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Registration:</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Registration succeeded!</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        
-                    </div>
-                    </div>
-                </div>
-            </div>
-            
-            % else:
-            <div class="modal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Registration:</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Registration declined, Please try again!</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        
-                    </div>
-                    </div>
-                </div>
-            </div>
-            % end
-        
         </main>
         
         <footer id="footer-bottom" class="footer mt-auto py-1 border-top">
