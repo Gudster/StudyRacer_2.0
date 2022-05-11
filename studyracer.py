@@ -4,7 +4,7 @@ from psycopg2 import Error
 from random import choice
 import json
 
-userLoggedIn = True
+userLoggedIn = False
 
 @route("/", userLoggedIn=userLoggedIn)
 def user_logged_in():
