@@ -6,11 +6,14 @@ import json
 
 
 userLoggedIn = False
-sign_up = ""
+sign_up = False
 userName = ""
 
 @route("/", method="POST")
 def sign_up():
+    global sign_up
+    global userLoggedIn
+    global userName
 
     try:
         userName = getattr(request.forms, "userName")
@@ -49,9 +52,7 @@ def sign_up():
             sign_up = True
             return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName)
 
-
-
-@route("/", method="POST")
+@route("/login", method="GET, POST")
 def log_in():
     global userName
     
@@ -77,8 +78,6 @@ def log_in():
             userLoggedIn = True
         else:
             print("Felaktigt inlogg")
-
-        conn.commit()
             
     except (Exception, Error) as error:
         print("Inloggning misslyckades")
@@ -137,14 +136,13 @@ def race2():
     
     return template("racepage2", userLoggedIn=userLoggedIn)
 
-
-
-@route("/logout")
-def log_out(): 
+@route("/logouthtml")
+def logouthtml():
     global userLoggedIn
-    userLoggedIn = False
-    return template("index", userLoggedIn=userLoggedIn)
 
+    userLoggedIn = False
+    redirect("/")
+    
 @route("/profile")
 def user_profile(): 
     global userName
