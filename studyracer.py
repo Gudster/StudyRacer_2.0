@@ -4,15 +4,107 @@ from psycopg2 import Error
 from random import choice
 import json
 
+
 userLoggedIn = False
+sign_up = ""
+userName = ""
 
-@route("/", userLoggedIn=userLoggedIn)
+@route("/", method="POST")
+def sign_up():
+
+    try:
+        userName = getattr(request.forms, "userName")
+        firstName = getattr(request.forms, "firstName")
+        lastName = getattr(request.forms, "lastName")
+        password = getattr(request.forms, "password")
+        country = getattr(request.forms, "country")
+
+        conn = psycopg2.connect(database="am0986",
+                                user='am0986',
+                                password='j6uv3f3d',
+                                host='pgserver.mau.se',
+                                port='5432')
+
+        conn.autocommit = True
+        cursor = conn.cursor()
+
+        cursor.execute(f'''INSERT INTO user_info(username, f_name, l_name, p_word, country)
+        VALUES ('{userName}', '{firstName}', '{lastName}', '{password}', '{country}')''')
+
+        conn.commit()
+        print(f"\n{userName}, {firstName}, {lastName}, {country} registrerad")
+        
+
+    except (Exception, Error) as error:
+        print("\nRegistrering misslyckades")
+        print("-"*30)
+        print(error)
+        print("-"*30)
+            
+    finally:
+        if (conn):
+            cursor.close()
+            conn.close()
+            userLoggedIn = True
+            sign_up = True
+            return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName)
+
+
+
+@route("/", method="POST")
+def log_in():
+    global userName
+    
+    try:
+        logInName = getattr(request.forms, "logInName")
+        #password2 = getattr(request.forms, "password2")
+
+        conn = psycopg2.connect(database="am0986",
+                                user='am0986',
+                                password='j6uv3f3d',
+                                host='pgserver.mau.se',
+                                port='5432')
+
+        
+        cursor = conn.cursor()
+        cursor.execute(f'''SELECT username FROM user_info WHERE username = '{logInName}' ''')
+        userNameChecker = cursor.fetchone()[0]
+         
+        userName=logInName
+        if logInName == userNameChecker:
+            print("\nInloggad!")
+            global userLoggedIn
+            userLoggedIn = True
+        else:
+            print("Felaktigt inlogg")
+
+        conn.commit()
+            
+    except (Exception, Error) as error:
+        print("Inloggning misslyckades")
+        print("-"*30)
+        print(error)
+        print("-"*30)
+
+    finally:
+        if (conn):
+            cursor.close()
+            conn.close()
+            userLoggedIn = True
+            return template("index", userLoggedIn=userLoggedIn, userName=logInName)
+
+@route("/")
 def user_logged_in():
+    global userLoggedIn
 
-    return template("index", userLoggedIn=userLoggedIn)
+    if userLoggedIn == True: 
+        return template("index", userLoggedIn=True, sign_up=sign_up, userName=userName)
+    else:
+        return template ("index", userLoggedIn=False, sign_up=sign_up, userName=userName)
 
-@route("/racepage/<text>", userLoggedIn=userLoggedIn)
+@route("/racepage/<text>")
 def race(text):
+
     if text == "beginner":
         my_file= open("article/beginner.json", "r")
         textToRace = my_file.read()
@@ -40,89 +132,30 @@ def race(text):
 
     return template("racepage", textFile=TTR, userLoggedIn=userLoggedIn)
 
-@route("/racepage2/", userLoggedin=userLoggedIn)
+@route("/racepage2/")
 def race2():
     
     return template("racepage2", userLoggedIn=userLoggedIn)
 
-@route("/", method="POST")
-def sign_up():
 
-    try:
-        userName = getattr(request.forms, "userName")
-        firstName = getattr(request.forms, "firstName")
-        lastName = getattr(request.forms, "lastName")
-        password = getattr(request.forms, "password")
-        country = getattr(request.forms, "country")
 
-        conn = psycopg2.connect(database="am0986",
-                                user='am0986',
-                                password='j6uv3f3d',
-                                host='pgserver.mau.se',
-                                port='5432')
+@route("/logout")
+def log_out(): 
+    global userLoggedIn
+    userLoggedIn = False
+    return template("index", userLoggedIn=userLoggedIn)
 
-        conn.autocommit = True
-        cursor = conn.cursor()
+@route("/profile")
+def user_profile(): 
+    global userName
+    userLoggedIn = True 
 
-        cursor.execute(f'''INSERT INTO user_info(username, f_name, l_name, p_word, country)
-        VALUES ('{userName}', '{firstName}', '{lastName}', '{password}', '{country}')''')
+    return template("profile", userLoggedIn=userLoggedIn, userName=userName)
 
-        conn.commit()
-        print(f"\n{userName}, {firstName}, {lastName}, {country} registrerad")
-
-    except (Exception, Error) as error:
-        print("\nRegistrering misslyckades")
-        print("-"*30)
-        print(error)
-        print("-"*30)
-            
-    finally:
-        if (conn):
-            cursor.close()
-            conn.close()
-            return template("index", userLoggedIn=True)
-
-@route("/", method="POST")
-def log_in():
-
-    try:
-        userName = getattr(request.forms, "userName")
-        password = getattr(request.forms, "password")
-
-        conn = psycopg2.connect(database="am0986",
-                                user='am0986',
-                                password='j6uv3f3d',
-                                host='pgserver.mau.se',
-                                port='5432')
-
-        
-        cursor = conn.cursor()
-        cursor.execute(f'''SELECT name, password FROM admin WHERE username = '{userName}' and password = '{password}' ''')
-        userNameChecker = cursor.fetchone()[0]
-        
-        if userName == userNameChecker:
-            print("\nInloggad!")
-        else:
-            print("Felaktigt inlogg")
-
-        conn.commit()
-            
-    except (Exception, Error) as error:
-        print("Inloggning misslyckades")
-        print("-"*30)
-        print(error)
-        print("-"*30)
-
-    finally:
-        if (conn):
-            cursor.close()
-            conn.close()
-            return template("index", userLoggedIn=True)
-
-@route("/racetext/")
+''' @route("/racetext/")
 def make_text_to_race ():
     
-    return template("racetext")
+    return template("racetext") '''
 
 @route("/racetext/save/", method="POST")
 def save_racetext ():
