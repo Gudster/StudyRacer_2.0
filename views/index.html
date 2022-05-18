@@ -28,16 +28,16 @@
                         <input type="search" class="form-control" placeholder="Search..." aria-label="Search"> <!-- ersätt med inloggning -->
                     </form>
 
-                    % if userLoggedIn == True: <!-- Header ändras beroende på om användaren är inloggad eller inte -->
+                    % if userLoggedIn == True:
                     <div class="dropdown text-end">
                         <a class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" title="">
                         </a>
 
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="/profile/">Profile</a></li>
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/logout/">Sign out</a></li>
+                            <li><a class="dropdown-item" href="/logout">Sign out</a></li>
                         </ul>
                     </div>
                     
@@ -53,7 +53,7 @@
 
         <main class="container-md text-center flex-shrink-0">
 
-            % if userLoggedIn == True: <!-- om användaren är inloggad kan användaren skapa ett skräddarsytt race -->
+            % if userLoggedIn == True: 
             <!--Scrollable modal-->
             <div class="modal fade text-white text-start" id="customModalScrollable" tabindex="-1" aria-labelledby="customModalScrollableTitle" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable">
