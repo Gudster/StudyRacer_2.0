@@ -5,7 +5,6 @@ from psycopg2 import Error
 from random import choice
 import json
 
-
 userLoggedIn = False
 sign_up = False
 userName = ""
@@ -14,7 +13,6 @@ userName = ""
 def sign_up():
     global sign_up
     global userLoggedIn
-    global userName
 
     try:
         userName = getattr(request.forms, "userName")
@@ -37,7 +35,6 @@ def sign_up():
 
         conn.commit()
         print(f"\n{userName}, {firstName}, {lastName}, {country} registrerad")
-        
 
     except (Exception, Error) as error:
         print("\nRegistrering misslyckades")
@@ -53,14 +50,15 @@ def sign_up():
             sign_up = True
             return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName)
 
-@route("/login", method="GET, POST")
+@route("/", method="POST")
 def log_in():
+    global userLoggedIn
     global userName
+
     
     try:
         logInName = getattr(request.forms, "logInName")
-        userPassword = getattr(request.forms, "password")
-        #password2 = getattr(request.forms, "password2")
+        passwords = getattr(request.forms, "password2")
 
         conn = psycopg2.connect(database="am0986",
                                 user='am0986',
@@ -70,18 +68,12 @@ def log_in():
 
         
         cursor = conn.cursor()
-        cursor.execute('''SELECT username, p_word FROM user_info WHERE username = %s AND p_word = %s ''', (logInName, userPassword))
-        userNameChecker = cursor.fetchall()
+        cursor.execute(f'''SELECT username FROM user_info WHERE username = '{logInName}' ''')
+        userNameChecker = cursor.fetchone()[0]
 
-       if userNameChecker == []:
-            userLoggedIn = False
-            return template
-            print("\nInloggad!")
-            global userLoggedIn
-            userLoggedIn = True
-        else:
-            print("Felaktigt inlogg")
-            userLoggedIn = False
+        cursor1 = conn.cursor()
+        cursor1.execute(f'''SELECT p_word FROM user_info WHERE p_word = '{passwords}' ''')
+        passwordChecker = cursor1.fetchone()[0]
             
     except (Exception, Error) as error:
         print("Inloggning misslyckades")
@@ -90,6 +82,12 @@ def log_in():
         print("-"*30)
 
     finally:
+        if logInName == userNameChecker and passwords == passwordChecker:
+            print("\nInloggad!")
+            userLoggedIn = True
+        else:
+            userLoggedIn = False
+            print("Felaktigt inlogg")
         if (conn):
             cursor.close()
             conn.close()
