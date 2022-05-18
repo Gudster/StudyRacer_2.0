@@ -35,9 +35,9 @@
                         </a>
 
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                            <li><a class="dropdown-item" href="/logout">Sign out</a></li>
                         </ul>
                     </div>
                     
@@ -50,7 +50,7 @@
                 </div>
             </div>
         </header>
-        
+
         <main class="container-md text-center flex-shrink-0">
 
             % if userLoggedIn == True:
@@ -82,6 +82,7 @@
             </div>
             
             <article class="container col-lg-10 p-5">
+                <h2 class="text-white">Welcome {{ userName }}!</h2>
                 <div class="d-flex justify-content-between text-black">
                     
                         <div class="flip-card">
@@ -127,8 +128,12 @@
                     </div>
                 </div>
             </article>
+
             
             % else:
+            
+            
+        
             <article class="container col-lg-10 p-5">
                 <!--Scrollable modal-->
                 <div class="modal fade text-white text-start" id="loginModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" style="display: none;" aria-hidden="true">
@@ -143,8 +148,9 @@
                                 <div class="row justify-content-center">
                                     <div class="text-white">
                                         <div class="mb-3">
-                                            <label for="formGroupExampleInput" class="form-label">Username</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Please enter your username!">
+                                            <form method="POST">
+                                                <label for="formGroupExampleInput" class="form-label">Username</label>
+                                                <input name="logInName" type="text" class="form-control" id="formGroupExampleInput" placeholder="Please enter your username!">
                                         
                                             <div class="mb-3">
                                                 <label for="formGroupExampleInput2" class="form-label">Password</label>
@@ -152,6 +158,7 @@
                                                 <div id="custom-race-modal" class="modal-footer">
                                                     <input type="submit" id="button-loog_in" class="btn btn-success m-0" value="Log in">                    
                                                 </div>
+                                            </form>
                                             </div>
                                         </div>
                                     </div>
@@ -159,8 +166,7 @@
                             </div>
                         </div>
                     </div>
-                </div>                                        
-
+                </div>
                         
                 <div class="modal fade text-white text-start" id="signupModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" style="display: none;" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
@@ -203,19 +209,20 @@
                                             </datalist>
                                         </div>
                                         <div id="custom-race-modal" class="modal-footer">
-                                            <input type="submit" id="button-sign-up" class="btn btn-success m-0" value="Sign up!">                    
+                                            <input type="submit" id="button-sign-up" class="btn btn-success m-0" value="Sign up!">                      
                                         </div>
                                         
                                     </div>
 
                                 </form>
-                                
 
                             </div>
                         </div>
                     </div>
                 </div>
             </article>
+
+
 
 
             <article class="container col-lg-10 p-5">
@@ -253,7 +260,7 @@
                                     <small class="mb-1">Choose your difficulty</small>
                                     <div class="d-inline-flex justify-content-end">
                                         <a id="button-easy" href="#" type="button" class="btn btn-success ms-2">Beginner</a>
-                                        <a id="button-medium" href="#" type="button" class="btn btn-warning ms-2">Novice</a>
+                                        <a id="button-medium" href="racepage/novice" type="button" class="btn btn-warning ms-2">Novice</a>
                                         <a id="button-hard" href="#" type="button" class="btn btn-danger ms-2">Master</a>
                                     </div>
                                 </div>
@@ -263,6 +270,7 @@
                 </div>
             </article>
             % end
+
         </main>
         
         <footer id="footer-bottom" class="footer mt-auto py-1 border-top">
