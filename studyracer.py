@@ -1,20 +1,18 @@
+import re
 from bottle import redirect, route, run, error, template, request, static_file, redirect
 import psycopg2
 from psycopg2 import Error
 from random import choice
 import json
 
-
 userLoggedIn = False
 sign_up = False
 userName = ""
-
 
 @route("/", method="POST")
 def sign_up():
     global sign_up
     global userLoggedIn
-    
 
     try:
         userName = getattr(request.forms, "userName")
@@ -37,7 +35,6 @@ def sign_up():
 
         conn.commit()
         print(f"\n{userName}, {firstName}, {lastName}, {country} registrerad")
-        
 
     except (Exception, Error) as error:
         print("\nRegistrering misslyckades")
@@ -77,7 +74,6 @@ def log_in():
         cursor1 = conn.cursor()
         cursor1.execute(f'''SELECT p_word FROM user_info WHERE p_word = '{passwords}' ''')
         passwordChecker = cursor1.fetchone()[0]
-        
             
     except (Exception, Error) as error:
         print("Inloggning misslyckades")
@@ -95,8 +91,6 @@ def log_in():
         if (conn):
             cursor.close()
             conn.close()
-            print("användarnamn:", logInName)
-            print("lösen:", passwords)
             return template("index", userLoggedIn=userLoggedIn, userName=logInName)
 
 @route("/")
