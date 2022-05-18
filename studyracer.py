@@ -5,48 +5,9 @@ from random import choice
 import json
 
 
-userLoggedIn = ""
+userLoggedIn = False
 sign_up = ""
 userName = ""
-
-@route("/")
-def user_logged_in():
-    userLoggedIn = True 
-    return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName)
-
-@route("/racepage/<text>", userLoggedIn=userLoggedIn)
-def race(text):
-    if text == "beginner":
-        my_file= open("article/beginner.json", "r")
-        textToRace = my_file.read()
-        TTR = json.loads(textToRace)
-        my_file.close()
-    
-    elif text == "novice":
-        my_file = open("articles/novice.json", "r")
-        textToRace = my_file.read()
-        TTR = json.loads(textToRace)
-        my_file.close()
-    
-    elif text == "master":
-        my_file = open("articles/master.json", "r")
-        textToRace = my_file.read()
-        TTR = json.loads(textToRace)
-        my_file.close()
-    
-    else:    
-        my_file = open(f"articles/{text}.json", "r")
-        textToRace = my_file.read()
-        TTR = json.loads(textToRace)
-        my_file.close() 
-        
-
-    return template("racepage", textFile=TTR, userLoggedIn=userLoggedIn)
-
-@route("/racepage2/")
-def race2():
-    
-    return template("racepage2", userLoggedIn=userLoggedIn)
 
 @route("/", method="POST")
 def sign_up():
@@ -88,10 +49,7 @@ def sign_up():
             sign_up = True
             return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName)
 
-@route("/")
-def log_out(): 
-    userLoggedIn = False
-    return template("index", userLoggedIn=userLoggedIn)
+
 
 @route("/", method="POST")
 def log_in():
@@ -115,6 +73,8 @@ def log_in():
         userName=logInName
         if logInName == userNameChecker:
             print("\nInloggad!")
+            global userLoggedIn
+            userLoggedIn = True
         else:
             print("Felaktigt inlogg")
 
@@ -133,11 +93,63 @@ def log_in():
             userLoggedIn = True
             return template("index", userLoggedIn=userLoggedIn, userName=logInName)
 
+@route("/")
+def user_logged_in():
+    global userLoggedIn
+
+    if userLoggedIn == True: 
+        return template("index", userLoggedIn=True, sign_up=sign_up, userName=userName)
+    else:
+        return template ("index", userLoggedIn=False, sign_up=sign_up, userName=userName)
+
+@route("/racepage/<text>")
+def race(text):
+
+    if text == "beginner":
+        my_file= open("article/beginner.json", "r")
+        textToRace = my_file.read()
+        TTR = json.loads(textToRace)
+        my_file.close()
+    
+    elif text == "novice":
+        my_file = open("articles/novice.json", "r")
+        textToRace = my_file.read()
+        TTR = json.loads(textToRace)
+        my_file.close()
+    
+    elif text == "master":
+        my_file = open("articles/master.json", "r")
+        textToRace = my_file.read()
+        TTR = json.loads(textToRace)
+        my_file.close()
+    
+    else:    
+        my_file = open(f"articles/{text}.json", "r")
+        textToRace = my_file.read()
+        TTR = json.loads(textToRace)
+        my_file.close() 
+        
+
+    return template("racepage", textFile=TTR, userLoggedIn=userLoggedIn)
+
+@route("/racepage2/")
+def race2():
+    
+    return template("racepage2", userLoggedIn=userLoggedIn)
+
+
+
+@route("/logout")
+def log_out(): 
+    global userLoggedIn
+    userLoggedIn = False
+    return template("index", userLoggedIn=userLoggedIn)
 
 @route("/profile")
 def user_profile(): 
-    global userName 
+    global userName
     userLoggedIn = True 
+
     conn = psycopg2.connect(database="am0986",
                             user='am0986',
                             password='j6uv3f3d',
@@ -153,10 +165,10 @@ def user_profile():
 
     return template("profile", userLoggedIn=userLoggedIn, userName=userName, spendTime=spendTime)
 
-@route("/racetext/")
+''' @route("/racetext/")
 def make_text_to_race ():
     
-    return template("racetext")
+    return template("racetext") '''
 
 @route("/racetext/save/", method="POST")
 def save_racetext ():
