@@ -136,7 +136,7 @@ def race2():
     
     return template("racepage2", userLoggedIn=userLoggedIn)
 
-@route("/logouthtml")
+@route("/logout")
 def logouthtml():
     global userLoggedIn
 
