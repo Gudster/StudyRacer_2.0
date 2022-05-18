@@ -1,3 +1,4 @@
+import re
 from bottle import redirect, route, run, error, template, request, static_file, redirect
 import psycopg2
 from psycopg2 import Error
@@ -58,6 +59,7 @@ def log_in():
     
     try:
         logInName = getattr(request.forms, "logInName")
+        userPassword = getattr(request.forms, "password")
         #password2 = getattr(request.forms, "password2")
 
         conn = psycopg2.connect(database="am0986",
@@ -68,16 +70,18 @@ def log_in():
 
         
         cursor = conn.cursor()
-        cursor.execute(f'''SELECT username FROM user_info WHERE username = '{logInName}' ''')
-        userNameChecker = cursor.fetchone()[0]
-         
-        userName=logInName
-        if logInName == userNameChecker:
+        cursor.execute('''SELECT username, p_word FROM user_info WHERE username = %s AND p_word = %s ''', (logInName, userPassword))
+        userNameChecker = cursor.fetchall()
+
+       if userNameChecker == []:
+            userLoggedIn = False
+            return template
             print("\nInloggad!")
             global userLoggedIn
             userLoggedIn = True
         else:
             print("Felaktigt inlogg")
+            userLoggedIn = False
             
     except (Exception, Error) as error:
         print("Inloggning misslyckades")
@@ -89,7 +93,6 @@ def log_in():
         if (conn):
             cursor.close()
             conn.close()
-            userLoggedIn = True
             return template("index", userLoggedIn=userLoggedIn, userName=logInName)
 
 @route("/")

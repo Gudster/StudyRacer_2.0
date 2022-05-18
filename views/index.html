@@ -19,19 +19,22 @@
                     </a>
 
                     <div id="header-title" class="text-start me-auto">
-                        <a href="/" id="" class="btn">
-                            <h2 id="header-study" class="d-inline fw-bold fs-1">S</h2><h2 class="d-inline text-black fw-bold fs-1">tudy</h2><h2 id="header-racer" class="d-inline fw-bold fs-1">R</h2><h2 class="d-inline text-black fw-bold fs-1">acer</h2>
+                        <a href="/" class="btn">
+                            <h2 id="header-study" class="d-inline fw-bold fs-1">S</h2>
+                            <h2 class="d-inline text-black fw-bold fs-1">tudy</h2>
+                            <h2 id="header-racer" class="d-inline fw-bold fs-1">R</h2>
+                            <h2 class="d-inline text-black fw-bold fs-1">acer</h2>
                         </a>
                     </div>                    
             
                     <form class="col-lg-auto my-3 me-3">
-                        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                        <input type="search" class="form-control" placeholder="Search..." aria-label="Search"> <!-- ersätt med inloggning -->
                     </form>
 
-                    % if userLoggedIn == True:
+                    % if userLoggedIn == True: <!-- Header ändras beroende på om användaren är inloggad eller inte -->
                     <div class="dropdown text-end">
                         <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" title="">
+                            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" title="">
                         </a>
 
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
@@ -53,7 +56,7 @@
 
         <main class="container-md text-center flex-shrink-0">
 
-            % if userLoggedIn == True:
+            % if userLoggedIn == True: <!-- om användaren är inloggad kan användaren skapa ett skräddarsytt race -->
             <!--Scrollable modal-->
             <div class="modal fade text-white text-start" id="customModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable">
@@ -103,10 +106,9 @@
                             </div>
                         </div>
                     
+                    <div class="vr"></div> <!-- Streck som skiljer innehåll -->
 
-                    <div class="vr"></div>
-
-                    <div class="flip-card">
+                    <div class="flip-card"> <!-- Byt ut flipcards mot statiska boxar -->
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <h4 class="d-inline">Random race</h4>
@@ -129,10 +131,7 @@
                 </div>
             </article>
 
-            
             % else:
-            
-            
         
             <article class="container col-lg-10 p-5">
                 <!--Scrollable modal-->
@@ -152,14 +151,14 @@
                                                 <label for="formGroupExampleInput" class="form-label">Username</label>
                                                 <input name="logInName" type="text" class="form-control" id="formGroupExampleInput" placeholder="Please enter your username!">
                                         
-                                            <div class="mb-3">
-                                                <label for="formGroupExampleInput2" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Please enter your password!">
-                                                <div id="custom-race-modal" class="modal-footer">
-                                                    <input type="submit" id="button-loog_in" class="btn btn-success m-0" value="Log in">                    
+                                                <div class="mb-3">
+                                                    <label for="formGroupExampleInput2" class="form-label">Password</label>
+                                                    <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Please enter your password!">
+                                                    <div id="custom-race-modal-footer" class="modal-footer">
+                                                        <input type="submit" id="button-loog_in" class="btn btn-success m-0" value="Log in">                    
+                                                    </div>
                                                 </div>
                                             </form>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
