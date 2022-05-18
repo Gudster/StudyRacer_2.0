@@ -4,13 +4,14 @@ from psycopg2 import Error
 from random import choice
 import json
 
+
 userLoggedIn = ""
 sign_up = ""
 userName = ""
 
 @route("/")
 def user_logged_in():
-
+    userLoggedIn = True 
     return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName)
 
 @route("/racepage/<text>", userLoggedIn=userLoggedIn)
@@ -87,9 +88,15 @@ def sign_up():
             sign_up = True
             return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName)
 
+@route("/")
+def log_out(): 
+    userLoggedIn = False
+    return template("index", userLoggedIn=userLoggedIn)
+
 @route("/", method="POST")
 def log_in():
-
+    global userName
+    
     try:
         logInName = getattr(request.forms, "logInName")
         #password2 = getattr(request.forms, "password2")
@@ -104,7 +111,8 @@ def log_in():
         cursor = conn.cursor()
         cursor.execute(f'''SELECT username FROM user_info WHERE username = '{logInName}' ''')
         userNameChecker = cursor.fetchone()[0]
-        
+         
+        userName=logInName
         if logInName == userNameChecker:
             print("\nInloggad!")
         else:
@@ -129,6 +137,7 @@ def log_in():
 @route("/profile")
 def user_profile(): 
     global userName 
+    userLoggedIn = True 
     conn = psycopg2.connect(database="am0986",
                             user='am0986',
                             password='j6uv3f3d',
@@ -138,8 +147,11 @@ def user_profile():
     
     cursor = conn.cursor()
     cursor.execute(f'''SELECT spend_time, wpm, accuracy, race_date FROM race WHERE username = '{userName}' ''')
+    all = cursor.fetchall()
+    spendTime = (all[0])
+   
 
-    return template("profile")
+    return template("profile", userLoggedIn=userLoggedIn, userName=userName, spendTime=spendTime)
 
 @route("/racetext/")
 def make_text_to_race ():
