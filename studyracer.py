@@ -1,4 +1,3 @@
-import re
 from bottle import redirect, route, run, error, template, request, static_file, redirect
 import psycopg2
 from psycopg2 import Error
@@ -6,75 +5,77 @@ from random import choice
 import json
 
 userLoggedIn = False
-sign_up = False
-userName = ""
+signup = False
+username = ""
+logInName = ""
 
 @route("/", method="POST")
 def sign_up():
-    global sign_up
+
+    global signup
     global userLoggedIn
 
     try:
-        userName = getattr(request.forms, "userName")
+        username = getattr(request.forms, "username")
         firstName = getattr(request.forms, "firstName")
         lastName = getattr(request.forms, "lastName")
         password = getattr(request.forms, "password")
         country = getattr(request.forms, "country")
 
-        conn = psycopg2.connect(database="am0986",
-                                user='am0986',
-                                password='j6uv3f3d',
-                                host='pgserver.mau.se',
-                                port='5432')
+        conn = psycopg2.connect(database = "am0986",
+                                user = 'am0986',
+                                password = 'j6uv3f3d',
+                                host = 'pgserver.mau.se',
+                                port = '5432')
 
         conn.autocommit = True
         cursor = conn.cursor()
-
         cursor.execute(f'''INSERT INTO user_info(username, f_name, l_name, p_word, country)
-        VALUES ('{userName}', '{firstName}', '{lastName}', '{password}', '{country}')''')
+        VALUES ('{username}', '{firstName}', '{lastName}', '{password}', '{country}')''')
 
         conn.commit()
-        print(f"\n{userName}, {firstName}, {lastName}, {country} registrerad")
+
+        print(f"\n{username}, {firstName}, {lastName}, {country} registrerad")
 
     except (Exception, Error) as error:
         print("\nRegistrering misslyckades")
         print("-"*30)
         print(error)
         print("-"*30)
-            
+
     finally:
         if (conn):
             cursor.close()
             conn.close()
             userLoggedIn = True
-            sign_up = True
-            return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName)
+            signup = True
+
+            return template("index", userLoggedIn=userLoggedIn, signup=signup, username=username)
 
 @route("/", method="POST")
 def log_in():
-    global userLoggedIn
-    global userName
 
-    
+    global userLoggedIn
+    global username
+
     try:
         logInName = getattr(request.forms, "logInName")
         passwords = getattr(request.forms, "password2")
 
-        conn = psycopg2.connect(database="am0986",
-                                user='am0986',
-                                password='j6uv3f3d',
-                                host='pgserver.mau.se',
-                                port='5432')
+        conn = psycopg2.connect(database = "am0986",
+                                user = 'am0986',
+                                password = 'j6uv3f3d',
+                                host = 'pgserver.mau.se',
+                                port = '5432')
 
-        
         cursor = conn.cursor()
         cursor.execute(f'''SELECT username FROM user_info WHERE username = '{logInName}' ''')
-        userNameChecker = cursor.fetchone()[0]
+        usernameChecker = cursor.fetchone()[0]
 
         cursor1 = conn.cursor()
         cursor1.execute(f'''SELECT p_word FROM user_info WHERE p_word = '{passwords}' ''')
         passwordChecker = cursor1.fetchone()[0]
-            
+
     except (Exception, Error) as error:
         print("Inloggning misslyckades")
         print("-"*30)
@@ -82,115 +83,91 @@ def log_in():
         print("-"*30)
 
     finally:
-        if logInName == userNameChecker and passwords == passwordChecker:
+        if logInName == usernameChecker and passwords == passwordChecker:
             print("\nInloggad!")
             userLoggedIn = True
+
         else:
             userLoggedIn = False
             print("Felaktigt inlogg")
+
         if (conn):
             cursor.close()
             conn.close()
-            return template("index", userLoggedIn=userLoggedIn, userName=logInName)
+
+            return template("index", userLoggedIn=userLoggedIn, username=logInName)
 
 @route("/")
 def user_logged_in():
+
     global userLoggedIn
 
-    if userLoggedIn == True: 
-        return template("index", userLoggedIn=True, sign_up=sign_up, userName=userName)
-    else:
-        return template ("index", userLoggedIn=False, sign_up=sign_up, userName=userName)
+    if userLoggedIn == True:
+        return template("index", userLoggedIn=True, signup=signup, username=username)
 
-@route("/racepage/<text>")
+    else:
+        return template ("index", userLoggedIn=False, signup=signup, username=username)
+
+@route("/racepage/<text>/")
 def race(text):
 
     if text == "beginner":
-        my_file= open("article/beginner.json", "r")
-        textToRace = my_file.read()
+        myFile = open("article/beginner.json", "r")
+        textToRace = myFile.read()
         TTR = json.loads(textToRace)
-        my_file.close()
-    
+        myFile.close()
+
     elif text == "novice":
-        my_file = open("articles/novice.json", "r")
-        textToRace = my_file.read()
+        myFile = open("articles/novice.json", "r")
+        textToRace = myFile.read()
         TTR = json.loads(textToRace)
-        my_file.close()
-    
+        myFile.close()
+
     elif text == "master":
-        my_file = open("articles/master.json", "r")
-        textToRace = my_file.read()
+        myFile = open("articles/master.json", "r")
+        textToRace = myFile.read()
         TTR = json.loads(textToRace)
-        my_file.close()
-    
+        myFile.close()
+
     else:    
-        my_file = open(f"articles/{text}.json", "r")
-        textToRace = my_file.read()
+        myFile = open(f"articles/{text}.json", "r")
+        textToRace = myFile.read()
         TTR = json.loads(textToRace)
-        my_file.close() 
-        
+        myFile.close() 
 
     return template("racepage", textFile=TTR, userLoggedIn=userLoggedIn)
 
-@route("/racepage2/")
-def race2():
-    
-    return template("racepage2", userLoggedIn=userLoggedIn)
+@route("/logout/")
+def logout_html():
 
-@route("/logout")
-def logouthtml():
     global userLoggedIn
-
     userLoggedIn = False
+
     redirect("/")
-    
-@route("/profile")
-def user_profile(): 
-    global userName
+
+@route("/profile/")
+def user_profile():
+
+    global username
     userLoggedIn = True 
 
-    return template("profile", userLoggedIn=userLoggedIn, userName=userName)
-
-''' @route("/racetext/")
-def make_text_to_race ():
-    
-    return template("racetext") '''
+    return template("profile", userLoggedIn=userLoggedIn, username=username)
 
 @route("/racetext/save/", method="POST")
 def save_racetext ():
+
     raceText = str(request.forms.get("userRaceText"))
 
-    my_file=open("articles/usertext.json", "w")
-    my_file.write(json.dumps(raceText))
-    my_file.close()
+    myFile=open("articles/usertext.json", "w")
+    myFile.write(json.dumps(raceText))
+    myFile.close()
 
     redirect("/racepage/usertext")
 
-@route("/result/", method="POST", userLoggedIn=userLoggedIn)
-def race_text_to_list():
-    '''gör om texten till en lista och beräknar användarens resultat i accuracy%'''
+@route("/static/<filename>/")
+def static_files(filename):
 
-    raceText = getattr(request.forms, "raceText")
-    userInput = getattr(request.forms, "userRaceInput")
-    raceTextAsList = raceText.split(" ")
-    userInputAsList = userInput.split(" ")
-
-    lastWord = raceTextAsList[-1]
-    lastInput = userInputAsList[-1]
-
-
-    matches = sum(a == b for a, b in zip(raceTextAsList, userInputAsList))
-    lenRaceText=len(raceTextAsList)
-    result = int(matches / lenRaceText * 100)
-
-    print("antal rätt", matches)
-    print("textens längd", lenRaceText)
-    print("procent", result)
-
-    
-    print(lastWord, lastInput)
-
-    return template("result", userResult=result, userMatches=matches, textLength=lenRaceText, userLoggedIn=userLoggedIn)
+    return static_file(filename, root="static")
 
 @error()
 def error(error):
@@ -199,11 +176,6 @@ def error(error):
     """
 
     return template("error")
-
-@route("/static/<filename>")
-def static_files(filename):
-
-    return static_file(filename, root="static")
 
 
 run(host="127.0.0.1", port=8080, reloader=True, debug=True)
