@@ -55,7 +55,7 @@ const myChartWpm = new Chart(ctxWpm, {
         labels: ['This race', 'Your avg.', 'World avg.'],
         datasets: [{
             label: 'Words Per Minute',
-            data: [wordsPerMinute, 81, 76],
+            data: [90, 81, 76],
             backgroundColor: [
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
