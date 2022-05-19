@@ -50,12 +50,45 @@
                 </div>
             </div>        
         </header>
-     <article>
-        <h2 class="text-white"> {{ userName }}'s profile</h2>
-        <!-- <h3 id =Best class="text-white">Best race:  Spend time:{{ spendTime}} </h3> -->
-        <h3 id=latest10 class="text-white">10 latest races: </h3>
-        <h3 id=latest100 class="text-white">10 latest races: </h3>
-    </article>
+        % if errorReg == True: 
+        <div id="resultbg" class="container py-3 mt-5 col-md-9 col-lg-7 col-xl-6 rounded shadow-lg">
+            <div class="row justify-content-center">
+                <div class="text-white">
+
+                    <h4>Something went wrong with your registration!</h4>
+                    <p>Please follow the instructions:</p>
+                    <p>Username must be at least 4 characters and a maximum of 16 characters.</p>
+                    <p>Password must be at least 8 caharacters.</p>
+                    <div class="d-flex justify-content-start">
+                        <a id="submitbutton" class="btn btn-warning text-black mt-1" href="/">Try again</a>                 
+                    </div>
+                </div>
+            </div>
+        </div>
+        % else: 
+        <div id="resultbg" class="container py-3 mt-5 col-md-9 col-lg-7 col-xl-6 rounded shadow-lg">
+            <div class="row justify-content-center">
+                <div class="text-white">
+
+                    <h4>Username already exist!</h4>
+                    <p> Please try again</p>
+                    <div class="d-flex justify-content-start">
+                        <a id="submitbutton" class="btn btn-warning text-black mt-1" href="/">Try again</a>                 
+                    </div>
+                </div>
+            </div>
+        </div>
+        %end
+            
+    
+    
+
+
+    
+    
+
+
+
 
         <footer id="footer-bottom" class="footer mt-auto py-1 border-top">
             <div class="container">
