@@ -58,7 +58,7 @@
                         <form action="/result/" method="POST" id="myForm">
                             <div class="container text-white">
                                 <div class="quote-display unselectable" id="quoteDisplay"></div>
-                                <input id="quoteInput" class="quote-input" onkeydown="timer_main()" autofocus autocapitalize="false" spellcheck="false"></input>
+                                <input id="quoteInput" class="quote-input" onkeydown="timer_main()" autofocus autocapitalize="false" spellcheck="false" autocomplete="off"></input>
                             </div>
                             <!-- GAMMAL TEXT AREA-->
                             <!-- 
@@ -90,7 +90,7 @@
 
                                 <div class="list-inline-item position-absolute end-0">
                                     <p>Words per minute: 
-                                        <span id="wpmUpdater"></span>
+                                        <span id="wpmUpdater">0</span>
                                     </p>
                                 </div>
                             </div>
@@ -118,8 +118,7 @@
 
         
     
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <script src="/static/inputScript.js"></script>
-        <script src="/static/race.js"></script>
+        <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src = "/static/inputScript.js"></script>
 
     </body>
