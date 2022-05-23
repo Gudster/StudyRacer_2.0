@@ -14,19 +14,11 @@
         <header id="headerbg" class="p-3 mb-3">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use href="/static/Icon_SR.png"></use></svg>
-                    </a>
-
                     <div id="header-title" class="text-start me-auto">
                         <a href="/" id="" class="btn">
-                            <h2 id="header-study" class="d-inline fw-bold fs-1">S</h2><h2 class="d-inline text-black fw-bold fs-1">tudy</h2><h2 id="header-racer" class="d-inline fw-bold fs-1">R</h2><h2 class="d-inline text-black fw-bold fs-1">acer</h2>
+                            <img src="/static/hhej.png" id="StudyR" class="img-fluid" alt="..." > 
                         </a>
-                    </div>                    
-            
-                    <form class="col-lg-auto my-3 me-3">
-                        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-                    </form>
+                    </div>
 
                     % if userLoggedIn == True:
                     <div class="dropdown text-end">
@@ -40,15 +32,15 @@
                             <li><a class="dropdown-item" href="/logout">Sign out</a></li>
                         </ul>
                     </div>
-
+                    
                     % else:
-                    <div class="text-end">
-                        <a type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModalScrollable">Login</a> 
-                        <a type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModalScrollable">Sign up</a>
+                    <div class="text-end align-self-end">
+                        <a type="button" id="button-login" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#loginModalScrollable">Login</a> 
+                        <a  type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModalScrollable">Sign up</a>
                     </div>
                     % end
                 </div>
-            </div>        
+            </div>
         </header>
         % if errorReg == True: 
         <div id="resultbg" class="container py-3 mt-5 col-md-9 col-lg-7 col-xl-6 rounded shadow-lg">

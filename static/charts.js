@@ -6,7 +6,7 @@ const myChartAcc = new Chart(ctxAcc, {
         labels: ['This race', 'Your avg.', 'World avg.'],
         datasets: [{
             label: "Accuracy",
-            data: [89, 93, 84],
+            data: [totalAccuracy, 93, 84],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -55,7 +55,7 @@ const myChartWpm = new Chart(ctxWpm, {
         labels: ['This race', 'Your avg.', 'World avg.'],
         datasets: [{
             label: 'Words Per Minute',
-            data: [90, 81, 76],
+            data: [wordsPerMinute, 55, 45],
             backgroundColor: [
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
@@ -72,7 +72,7 @@ const myChartWpm = new Chart(ctxWpm, {
     options: {
         scales: {
             y: {
-                min: 40,
+                
             }
         },
         plugins: {

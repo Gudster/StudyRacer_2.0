@@ -14,27 +14,11 @@
         <header id="headerbg" class="p-3 mb-3">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use href="/static/Icon_SR.png"></use> </svg>
-                         
-                        
-                        
-                    </a>
-                    <img src="/static/hhej.png" id="StudyR" class="img-fluid" alt="..." > 
                     <div id="header-title" class="text-start me-auto">
                         <a href="/" id="" class="btn">
-
-                            
-                            <!-- <h2 id="header-study" class="d-inline fw-bold fs-1">S</h2>
-                            <h2 class="d-inline text-black fw-bold fs-1">tudy</h2>
-                            <h2 id="header-racer" class="d-inline fw-bold fs-1">R</h2>
-                            <h2 class="d-inline text-black fw-bold fs-1">acer</h2> -->
+                            <img src="/static/hhej.png" id="StudyR" class="img-fluid" alt="..." > 
                         </a>
-                    </div>                    
-            
-                    <!-- <form class="col-lg-auto my-3 me-3">
-                        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-                    </form> -->
+                    </div>
 
                     % if userLoggedIn == True:
                     <div class="dropdown text-end">
@@ -208,8 +192,8 @@
                         <h3>Custom race</h3>
                         <p>Create your own race. Insert text from an article or your notes to study and learn while getting faster at typing.</p>
                         <div class="my-2 text-muted align-self-end row justify-content-start">
-                            <small class="mb-1"><a href="#">Log in</a> to create a custom race.</small>
-                            <small class="mt-1 ">No account? Sign up <a href="#">here</a></small>
+                            <small class="mb-1"><a href="#" data-bs-toggle="modal" data-bs-target="#loginModalScrollable">Log in</a> to create a custom race.</small>
+                            <small class="mt-1 ">No account? Sign up <a href="#" data-bs-toggle="modal" data-bs-target="#signupModalScrollable">here</a></small>
                         </div>
                     </div>
 

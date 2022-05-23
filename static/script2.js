@@ -7,13 +7,13 @@ let min = 00;
 let appendMiliSec = document.getElementById('miliSec');
 let appendSec = document.getElementById('sec');
 let appendMin = document.getElementById('min');
-let pressToStart = document.getElementById('input');
+let pressToStart = document.getElementById('quoteInput');
 let appendTotalMin = document.getElementById('setMin');
-
 
 // hämtar från local storage
 let totalSec = localStorage.getItem('storeSec');
 let totalMin = localStorage.getItem('storeMin');
+let totalWpm = localStorage.getItem('storeWpm')
 let totalWords = localStorage.getItem('storeWords');
 
 
@@ -25,55 +25,78 @@ let wordsPerMinuteUpdater = Math.trunc(totalWords / (sec / 60));
 
 //
 
-document.getElementById('resultwpm').innerHTML = wordsPerMinute;
-document.getElementById('totalMin').innerHTML = totalMin + "m "
-document.getElementById('totalSec').innerHTML = totalSec + "s"
-
-
 // timer_main 
 let int = null;
-// ?????
-let strokeCount = 0;
 
 
-/*
-// Check if last word is equal to the last word of the text and the amount of words are the same, 
-// if it is, submit the text. 
-messageEle.addEventListener('input', function (e) {
-	console.log("din text: " + messageEle.value)
-	// Split the written text into an array, space makes new arrayitem
-	let writtenTextArray = messageEle.value.split(" ")
-	// Check the last word of the array
-	let writtenTextLastWord = writtenTextArray.pop();
-	// count the amount of arrayitems
-	const writtenTextLength = writtenTextArray.length;
+function timer_main() {
+	//Om användaren trycker på någon tangent startar timern
+	document.getElementById('quoteInput').addEventListener('keydown', event=>{
+		if(event.int !== null){
+			clearInterval(int);
+		}
+		int = setInterval(start_timer, 10);
+	});
+}
 
-	console.log(writtenTextArray)
-	console.log(writtenTextLastWord)
-	console.log("length input: " + writtenTextLength)
+function total_time(){
+	// Denna funktionen ska presentera tiden spenderad i racet på resultatsidan
+	totalMin.innerHTML = localStorage.getItem('appendMin');
 
-	// get the text the user is supposed to race
-	const raceText = document.getElementById("text").value
-	// Split the text into an array
-	const raceTextArray = raceText.split(" ");
-	// Check the last word of the array
-	const raceTextLastWord = raceTextArray.pop();
-	// Count the amount of arrayitems
-	const raceTextLength = raceTextArray.length;
-	console.log(raceTextArray);
-	console.log (raceTextLastWord);
-	console.log("length text: " + raceTextLength)
+};
 
-	// Checks if the last written word is equal to the last word of the race, and if the number of arrayitems are
-	// the same, if this is the case, finish the race.
-	if (writtenTextLastWord === raceTextLastWord && writtenTextLength === raceTextLength) {
-		document.forms["myForm"].submit();
+const messageEle = document.getElementById('quoteInput');
+const counterEle = document.getElementById('count');
+
+messageEle.addEventListener('quoteInput', function (e) {
+	const target = e.target;
+
+	// Get the `maxlength` attribute
+	const maxLength = target.getAttribute('maxlength');
+
+	// Count the current number of characters
+	const currentLength = target.value.length;
+
+	counterEle.innerHTML = `${currentLength}`;
+});
+
+function start_timer(){
+	// Funktion som räknar tid och ökar värden vid angivna gränser
+	
+	miliSec ++;
+	storeTotalMin = min;
+	storeTotalSec = sec;
+
+	if (miliSec < 9){
+		appendMiliSec.innerHTML = "0" + miliSec;
 	}
-});*/
 
-//function wordsPerMinuteUpdater() {
-//    document.getElementById("wpmUpdater").innerHTML = wordsPerMinuteUpdater;
-//};
+	if (miliSec > 9){
+		appendMiliSec.innerHTML = miliSec;
+	}
+
+	if (miliSec > 99){
+		sec ++;
+		appendSec.innerHTML = "0" + sec;
+		miliSec = 0;
+		appendMiliSec.innerHTML = "0" + 0;
+	}
+
+	if (sec < 9){
+		appendSec.innerHTML = "0" + sec;
+	}
+
+	if (sec > 9){
+		appendSec.innerHTML = sec;
+	}
+
+	if (sec > 59){
+		min ++;
+		appendMin.innerHTML = "0" + min;
+		sec = 0;
+		appendSec.innerHTML ="0" + + 0;
+	}
+}
 
 function submit_button_save() {
 	clearInterval(int);
@@ -81,5 +104,5 @@ function submit_button_save() {
 	// Put the object into storage
 	localStorage.setItem('storeMin', JSON.stringify(storeTotalMin));
 	localStorage.setItem('storeSec', JSON.stringify(storeTotalSec));
-	localStorage.setItem('storeWords', JSON.stringify(storeTotalWords));
+	localStorage.setItem('storeWpm', JSON.stringify(storeTotalWpm));
 }

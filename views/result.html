@@ -14,27 +14,11 @@
         <header id="headerbg" class="p-3 mb-3">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use href="/static/Icon_SR.png"></use> </svg>
-                         
-                        
-                        
-                    </a>
-                    <img src="/static/hhej.png" id="StudyR" class="img-fluid" alt="..." > 
                     <div id="header-title" class="text-start me-auto">
                         <a href="/" id="" class="btn">
-
-                            
-                            <!-- <h2 id="header-study" class="d-inline fw-bold fs-1">S</h2>
-                            <h2 class="d-inline text-black fw-bold fs-1">tudy</h2>
-                            <h2 id="header-racer" class="d-inline fw-bold fs-1">R</h2>
-                            <h2 class="d-inline text-black fw-bold fs-1">acer</h2> -->
+                            <img src="/static/hhej.png" id="StudyR" class="img-fluid" alt="..." > 
                         </a>
-                    </div>                    
-            
-                    <!-- <form class="col-lg-auto my-3 me-3">
-                        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-                    </form> -->
+                    </div>
 
                     % if userLoggedIn == True:
                     <div class="dropdown text-end">
@@ -60,18 +44,12 @@
         </header>
 
             
-        <main class="container-md text-center flex-shrink-0">
+        <main class="container-md text-center flex-shrink-0 mt-5">
             <div class="text-center">
                 <div class="text-white">
                     <div>
                         <p>Words per minute: 
                             <span id="resultwpm"></span>
-                        </p>
-                    </div>
-
-                    <div>
-                        <p>Correct words: 
-                            <span id="userMatches">{{ userMatches }}/{{ textLength }}</span>
                         </p>
                     </div>
 
@@ -83,15 +61,13 @@
 
                     <div>
                         <p>Accuracy: 
-                            <span>{{ userResult }}%</span>
+                            <span id="totalAcc"></span>
                         </p>
                     </div>
                 </div>
             </div>
-                
-            % end
 
-            <div>
+            <div class="mt-5">
                 <h3 class="text-white">Race again:</h3>
                 <div class="d-inline-flex justify-content-center">
                     <a id="button-easy" href="/racepage/beginner" type="button" class="btn btn-success ms-2">Beginner</a>
@@ -128,7 +104,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="/node_modules/chart.js/dist/chart.js"></script>
-        <script src="/static/script2.js"></script>
+        <script src="/static/script3.js"></script>
         <script src="/static/charts.js"></script>
 
     </body>
