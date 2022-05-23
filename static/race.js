@@ -13,11 +13,9 @@ let int = null;
 
 // Retrieve the object from storage
 
-let totalMin = localStorage.getItem('storeMin');
-let totalSec = localStorage.getItem('storeSec');
-let totalWords = localStorage.getItem('storeWords');
-let calculatedTime = totalMin * 60 + + totalSec;
-let wordsPerMinute = Math.trunc(totalWords / (calculatedTime / 60));
+//let totalMin = localStorage.getItem('storeMin');
+//let totalSec = localStorage.getItem('storeSec');
+
 
 
 var strokeCount = 0;
@@ -25,15 +23,6 @@ var strokeCount = 0;
 //let wordsPerMinuteUpdater = Math.trunc(writtenTextArray / (sec / 60));
 
 
-
-console.log('Minuter: ', JSON.parse(totalMin));
-console.log('Sekunder: ', JSON.parse(totalSec));
-
-console.log('Tid: ', calculatedTime);
-
-console.log('Antal ord: ', JSON.parse(totalWords));
-console.log('Ord per minut: ',  wordsPerMinute);
-console.log('Knapptryck: ');
 
 
 function timer_main() {
@@ -210,6 +199,3 @@ messageEle.addEventListener('quoteInput', function (e) {
 //function wordsPerMinuteUpdater() {
     //document.getElementById("wpmUpdater").innerHTML = wordsPerMinuteUpdater;
 //};
-
-// If user quoteInput is correct, mark the letter green, if incorrect, mark the letter red
-function mark_letters(){}

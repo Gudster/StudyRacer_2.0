@@ -15,18 +15,26 @@
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use href="/static/Icon_SR.png"></use></svg>
+                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use href="/static/Icon_SR.png"></use> </svg>
+                         
+                        
+                        
                     </a>
-
+                    <img src="/static/hhej.png" id="StudyR" class="img-fluid" alt="..." > 
                     <div id="header-title" class="text-start me-auto">
                         <a href="/" id="" class="btn">
-                            <h2 id="header-study" class="d-inline fw-bold fs-1">S</h2><h2 class="d-inline text-black fw-bold fs-1">tudy</h2><h2 id="header-racer" class="d-inline fw-bold fs-1">R</h2><h2 class="d-inline text-black fw-bold fs-1">acer</h2>
+
+                            
+                            <!-- <h2 id="header-study" class="d-inline fw-bold fs-1">S</h2>
+                            <h2 class="d-inline text-black fw-bold fs-1">tudy</h2>
+                            <h2 id="header-racer" class="d-inline fw-bold fs-1">R</h2>
+                            <h2 class="d-inline text-black fw-bold fs-1">acer</h2> -->
                         </a>
                     </div>                    
             
-                    <form class="col-lg-auto my-3 me-3">
+                    <!-- <form class="col-lg-auto my-3 me-3">
                         <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-                    </form>
+                    </form> -->
 
                     % if userLoggedIn == True:
                     <div class="dropdown text-end">
@@ -44,7 +52,7 @@
                     % else:
                     <div class="text-end">
                         <a type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModalScrollable">Login</a> 
-                        <a type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModalScrollable">Sign up</a>
+                        <a  type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModalScrollable">Sign up</a>
                     </div>
                     % end
                 </div>
@@ -65,11 +73,11 @@
                         <div class="modal-body">
                             <form action="/racetext/save/" method="POST">
                                 <div class="mb-3">
-                                    <input type="" class="form-control" id="exampleFormControlInput1" placeholder="Name of the article or text...">
+                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name of the article or text...">
                                     <label for="exampleFormControlInput1" class="form-label text-muted m-1">Add a title to your race</label>
                                 </div>
                                 <div>
-                                    <textarea id="" class="form-control" rows="15" maxlength="3500" name="userRaceText" placeholder="Paste your text here..." spellcheck="false"></textarea>
+                                    <textarea class="form-control" rows="15" maxlength="3500" name="userRaceText" placeholder="Paste your text here..." spellcheck="false"></textarea>
                                 </div>
                                 <small class="text-muted">Max 3500 characters.</small>
                                 <div id="custom-race-modal" class="modal-footer">
@@ -118,9 +126,9 @@
                                 <div class="my-2 text-muted align-self-end">
                                     <small class="mb-1">Choose your difficulty</small>
                                     <div class="d-inline-flex justify-content-end">
-                                        <a id="button-easy" href="racepage/beginner" type="button" class="btn btn-success ms-2">Beginner</a>
-                                        <a id="button-medium" href="racepage/novice" type="button" class="btn btn-warning ms-2 ">Novice</a>
-                                        <a id="button-hard" href="racepage/master" type="button" class="btn btn-danger ms-2">Master</a>
+                                        <a id="button-easy" href="/racepage/beginner" type="button" class="btn btn-success ms-2">Beginner</a>
+                                        <a id="button-medium" href="/racepage/novice" type="button" class="btn btn-warning ms-2 ">Novice</a>
+                                        <a id="button-hard" href="/racepage/master" type="button" class="btn btn-danger ms-2">Master</a>
                                     </div>
                                 </div>
                             </div>
@@ -148,15 +156,17 @@
                                 <div class="row justify-content-center">
                                     <div class="text-white">
                                         <div class="mb-3">
-                                            <form method="POST">
+                                            <form  method="POST" >
                                                 <label for="formGroupExampleInput" class="form-label">Username</label>
                                                 <input name="logInName" type="text" class="form-control" id="formGroupExampleInput" placeholder="Please enter your username!">
                                         
                                             <div class="mb-3">
                                                 <label for="formGroupExampleInput2" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Please enter your password!">
-                                                <div id="custom-race-modal" class="modal-footer">
-                                                    <input type="submit" id="button-loog_in" class="btn btn-success m-0" value="Log in">                    
+                                                <input name= "password2" type="password" class="form-control" id="formGroupExampleInput2" placeholder="Please enter your password!">
+                                                <div id="custom-race-modal-footer" class="modal-footer">
+                                                    
+                                                <input type="submit"  id="button-loog_in" class="btn btn-success m-0" value="Log in">
+                                                                       
                                                 </div>
                                             </form>
                                             </div>
@@ -175,7 +185,7 @@
                                 <h5 class="modal-title" id="exampleModalScrollableTitle">Sign up</h5>
                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body mt-3">
+                            <div   class="modal-body mt-3">
                                 <form class="row px-2 justify-content-evenly" method="POST">
 
                                     <div class="row mb-3 px-0">
@@ -209,11 +219,12 @@
                                             </datalist>
                                         </div>
                                         <div id="custom-race-modal" class="modal-footer">
+                                            
                                             <input type="submit" id="button-sign-up" class="btn btn-success m-0" value="Sign up!">                      
                                         </div>
                                         
                                     </div>
-
+                                
                                 </form>
 
                             </div>
@@ -221,6 +232,8 @@
                     </div>
                 </div>
             </article>
+
+           
 
 
 
@@ -259,9 +272,9 @@
                                 <div class="my-2 text-muted align-self-end">
                                     <small class="mb-1">Choose your difficulty</small>
                                     <div class="d-inline-flex justify-content-end">
-                                        <a id="button-easy" href="#" type="button" class="btn btn-success ms-2">Beginner</a>
-                                        <a id="button-medium" href="racepage/novice" type="button" class="btn btn-warning ms-2">Novice</a>
-                                        <a id="button-hard" href="#" type="button" class="btn btn-danger ms-2">Master</a>
+                                        <a id="button-easy" href="/racepage/beginner" type="button" class="btn btn-success ms-2">Beginner</a>
+                                        <a id="button-medium" href="/racepage/novice" type="button" class="btn btn-warning ms-2">Novice</a>
+                                        <a id="button-hard" href="/racepage/master" type="button" class="btn btn-danger ms-2">Master</a>
                                     </div>
                                 </div>
                             </div>
@@ -271,14 +284,19 @@
             </article>
             % end
 
+           
+
+           
+
+
         </main>
         
         <footer id="footer-bottom" class="footer mt-auto py-1 border-top">
             <div class="container">
                 <ul class="nav justify-content-center">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+                    <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+                    <li class="nav-item"><a href="/faq" class="nav-link px-2 text-muted">FAQs</a></li>
+                    <li class="nav-item"><a href="/about" class="nav-link px-2 text-muted">About</a></li>
                 </ul>
                 <p class="text-center text-muted">© 2022 StudyRacer</p>
             </div>
