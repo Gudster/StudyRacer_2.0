@@ -4,12 +4,8 @@ body {
     background-size: 1800px 300px;
     background-repeat: no-repeat;
     background-position-x: center;
-    background-position-y: -80px;
+    background-position-y: -100px;
     background-blend-mode: color-dodge;
-}
-
-#main {
-    background-color: rgb(227, 227, 227) !important;
 }
 
 #header-study {
@@ -20,16 +16,16 @@ body {
     color: #df5959;
 }
 
-#button-create {
+#button-easy, #button-custom, #button-custom-race, #button-create {
     background-color: #8cce6e;
     color: black;
     border-color: #304826;
 }
 
-#button-easy, #button-custom, #button-custom-race {
+#button-login, #button-login-modal, #button-sign-up {
     background-color: #8cce6e;
     color: black;
-    border-color: #304826;
+    border-color: rgba(255, 255, 255, 0);
 }
 
 #button-hard {
@@ -38,53 +34,9 @@ body {
     border-color: #612828;
 }
 
-/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
-.flip-card, .flip-card2 {
-    background-color: transparent;
-    width: 400px;
-    height: 300px;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
-}
-
-/* This container is needed to position the front and back side */
-.flip-card-inner, .flip-card-inner2 {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.5s;
-    transform-style: preserve-3d;
-}
-
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
-}
-
-/* Position the front and back side */
-.flip-card-front, .flip-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden; /* Safari */
-    backface-visibility: hidden;
-}
-
-/* Style the front side (fallback if image is missing) */
-.flip-card-front {
-    background-color: rgb(214, 214, 214);
-    color: black;
-}
-
-/* Style the back side */
-.flip-card-back {
-    background-color: rgb(189, 189, 189);
-    color: white;
-    transform: rotateY(180deg);
-}
-
-#custom-race-modal {
+#custom-race-modal, #custom-race-modal-footer {
     border-top: none;
-    padding: 0;
+    
 }
 
 #book, #keyboard {

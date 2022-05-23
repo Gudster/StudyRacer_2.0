@@ -15,18 +15,26 @@
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use href="/static/Icon_SR.png"></use></svg>
+                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use href="/static/Icon_SR.png"></use> </svg>
+                         
+                        
+                        
                     </a>
-
+                    <img src="/static/hhej.png" id="StudyR" class="img-fluid" alt="..." > 
                     <div id="header-title" class="text-start me-auto">
                         <a href="/" id="" class="btn">
-                            <h2 id="header-study" class="d-inline fw-bold fs-1">S</h2><h2 class="d-inline text-black fw-bold fs-1">tudy</h2><h2 id="header-racer" class="d-inline fw-bold fs-1">R</h2><h2 class="d-inline text-black fw-bold fs-1">acer</h2>
+
+                            
+                            <!-- <h2 id="header-study" class="d-inline fw-bold fs-1">S</h2>
+                            <h2 class="d-inline text-black fw-bold fs-1">tudy</h2>
+                            <h2 id="header-racer" class="d-inline fw-bold fs-1">R</h2>
+                            <h2 class="d-inline text-black fw-bold fs-1">acer</h2> -->
                         </a>
                     </div>                    
             
-                    <form class="col-lg-auto my-3 me-3">
+                    <!-- <form class="col-lg-auto my-3 me-3">
                         <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-                    </form>
+                    </form> -->
 
                     % if userLoggedIn == True:
                     <div class="dropdown text-end">
@@ -40,11 +48,11 @@
                             <li><a class="dropdown-item" href="/logout">Sign out</a></li>
                         </ul>
                     </div>
-
+                    
                     % else:
-                    <div class="text-end">
-                        <a type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModalScrollable">Login</a> 
-                        <a type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModalScrollable">Sign up</a>
+                    <div class="text-end align-self-end">
+                        <a type="button" id="button-login" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#loginModalScrollable">Login</a> 
+                        <a  type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModalScrollable">Sign up</a>
                     </div>
                     % end
                 </div>
@@ -54,116 +62,43 @@
             
         <main class="container-md text-center flex-shrink-0">
             <div class="text-center">
+                <div class="text-white">
+                    <div>
+                        <p>Words per minute: 
+                            <span id="resultwpm"></span>
+                        </p>
+                    </div>
 
-                % if userResult >= 90:
-                <div class="shadow-md">
-                    <h4 id="resultpercentage90" class="mb-3">Perfect race!</h4>
-                
-                    <div class="text-white">
+                    <div>
+                        <p>Correct words: 
+                            <span id="userMatches">{{ userMatches }}/{{ textLength }}</span>
+                        </p>
+                    </div>
 
-                        <div>
-                            <p>Words per minute: 
-                                <span id="resultwpm"></span>
-                            </p>
-                        </div>
+                    <div>
+                        <p>Total time: 
+                            <span id="totalMin"></span><span id="totalSec"></span>
+                        </p>
+                    </div>
 
-                        <div>
-                            <p>Correct words: 
-                                <span id="userMatches">{{ userMatches }}/{{ textLength }}</span>
-                            </p>
-                        </div>
-
-                        <div>
-                            <p>Total time: 
-                                <span id="totalMin"></span><span id="totalSec"></span>
-                            </p>
-                        </div>
-
-                        <div>
-                            <p>Accuracy: 
-                                <span>{{ userResult }}%</span>
-                            </p>
-                        </div>
+                    <div>
+                        <p>Accuracy: 
+                            <span>{{ userResult }}%</span>
+                        </p>
                     </div>
                 </div>
-
-                % elif userResult < 90 and userResult >= 60:
-                <div class="shadow-md">
-                    <h4 id="resultpercentage60" class="mb-3">Good job!</h4>
-                
-                    <div class="text-white">
-
-                        <div>
-                            <p>Words per minute: 
-                                <span id="resultwpm"></span>
-                            </p>
-                        </div>
-
-                        <div>
-                            <p>Correct words: 
-                                <span id="userMatches">{{ userMatches }}/{{ textLength }}</span>
-                            </p>
-                        </div>
-
-                        <div>
-                            <p>Total time: 
-                                <span id="totalMin"></span><span id="totalSec"></span>
-                            </p>
-                        </div>
-
-                        <div>
-                            <p>Accuracy: 
-                                <span>{{ userResult }}%</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                % else:
-                <div class="shadow-md">
-                    <h4 id="resultpercentage" class="mb-3">Could have done better...</h4>
-                    
-                    <div class="text-white">
-
-                        <div>
-                            <p>Words per minute: 
-                                <span id="resultwpm"></span>
-                            </p>
-                        </div>
-
-                        <div>
-                            <p>Correct words: 
-                                <span id="userMatches">{{ userMatches }}/{{ textLength }}</span>
-                            </p>
-                        </div>
-
-                        <div>
-                            <p>Total time: 
-                                <span id="totalMin"></span><span id="totalSec"></span>
-                            </p>
-                        </div>
-
-                        <div>
-                            <p>Accuracy: 
-                                <span>{{ userResult }}%</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                % end
-
-                <div>
-                    <h3 class="text-white">Race again:</h3>
-                    <div class="d-inline-flex justify-content-center">
-                        <a id="button-easy" href="/racepage/beginner" type="button" class="btn btn-success ms-2">Beginner</a>
-                        <a id="button-medium" href="/racepage/novice" type="button" class="btn btn-warning ms-2 ">Novice</a>
-                        <a id="button-hard" href="/racepage/master" type="button" class="btn btn-danger ms-2">Master</a>
-                    </div>                     
-                </div>
-
             </div>
-        
+                
+            % end
+
+            <div>
+                <h3 class="text-white">Race again:</h3>
+                <div class="d-inline-flex justify-content-center">
+                    <a id="button-easy" href="/racepage/beginner" type="button" class="btn btn-success ms-2">Beginner</a>
+                    <a id="button-medium" href="/racepage/novice" type="button" class="btn btn-warning ms-2 ">Novice</a>
+                    <a id="button-hard" href="/racepage/master" type="button" class="btn btn-danger ms-2">Master</a>
+                </div>                     
+            </div>
 
             <div id="resultbg" class="container py-3 mt-5 col-md-9 col-lg-7 col-xl-6 d-flex justify-content-evenly">
                     <div>
