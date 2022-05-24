@@ -8,7 +8,8 @@ userLoggedIn = False
 signup = False
 username = ""
 checkUserData = False
-errorReg = False
+errorReg=False
+errorlogin=False
 
 @route("/", method="POST")
 def signup():
@@ -105,10 +106,11 @@ def signup():
         
 
 
-@route("/", method="POST")
+@route("/login", method="POST")
 def log_in():
     global username
-
+    global errorlogin
+    global userLoggedIn
     
     try:
         logInName = getattr(request.forms, "logInName")
@@ -123,28 +125,24 @@ def log_in():
 
         cursor = conn.cursor()
         cursor.execute('''SELECT username, p_word FROM user_info''')
-        listUsernames= cursor.fetchall()
+        listUser= cursor.fetchall()
 
         conn.commit()
         cursor.close()
         conn.close()
 
-
-
-        for namePword in listUsernames:
-            if (namePword == username and password2):
-                
+        print (listUser)
     
-         
-                print("\nInloggad!")
-                global userLoggedIn
-                userLoggedIn = True
-            else:
-                print("Felaktigt inlogg")
-                userLoggedIn= False 
-            break
-            
+        for index, tuple in enumerate(listUser):
+            element_one= tuple[0]
+            element_two =tuple[1]
 
+            print (element_one, element_two)
+            
+            if (element_one == username and element_two == password2):
+                print("\nrätt namn!")
+                userLoggedIn= True
+            
     except (Exception, Error) as error:
         print("Inloggning misslyckades")
         print("-"*30)
@@ -156,11 +154,11 @@ def log_in():
             (conn)
             cursor.close()
             conn.close()
-            userLoggedIn = True
-            redirect("index", userLoggedIn=userLoggedIn, username=logInName)
+        
+            return template("index", userLoggedIn=userLoggedIn, userName=logInName)
         else: 
-            print("HEj hejjjjjjjjjj")
-            return template("ErrorReg", userLoggedIn=userLoggedIn, username=logInName)
+            print("Inlogg fel")
+            return template("errorlogin", errorlogin=errorlogin, userLoggedIn=userLoggedIn, userName=logInName)
 
 @route("/")
 def user_logged_in():
@@ -248,11 +246,11 @@ def error(error):
 
 @route("/faq")
 def faq (): 
-    return template("faq")
+    return template("faq", userLoggedIn=userLoggedIn, userName=userName)
 
 @route("/about")
 def about (): 
-    return template("about")
+    return template("about",  userLoggedIn=userLoggedIn, userName=userName)
 
 @route("/static/<filename>")
 def static_files(filename):

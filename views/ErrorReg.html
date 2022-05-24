@@ -13,17 +13,19 @@
     <body class="bg-dark d-flex flex-column h-100">
         <header id="headerbg" class="p-3 mb-3">
             <div class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <div id="header-title" class="text-start me-auto">
-                        <a href="/" id="" class="btn">
-                            <img src="/static/hhej.png" id="StudyR" class="img-fluid" alt="..." > 
+                <div class="d-flex justify-content-evenly">
+                
+                    <div class="d-flex">
+                        <a href="/" class="StudyR">
+                            <img src="/static/SR1.png" class="img-fluid" alt="Study racer logo"> 
                         </a>
                     </div>
 
                     % if userLoggedIn == True:
-                    <div class="dropdown text-end">
-                        <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" title="">
+                    <div class="dropdown text-end d-flex align-items-end">
+                        <a href="#" class="d-block link-light text-decoration-none dropdown-toggle align-items-end" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            
+                            <img src="/static/pr3.png" alt="mdo" width="60" height="60" class="rounded-circle" title=""> 
                         </a>
 
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
@@ -31,17 +33,21 @@
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="/logout">Sign out</a></li>
                         </ul>
-                    </div>
+                    </div> 
                     
                     % else:
-                    <div class="text-end align-self-end">
-                        <a type="button" id="button-login" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#loginModalScrollable">Login</a> 
+                    <div class="d-flex align-items-end">
+                        <a type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModalScrollable">Login</a> 
                         <a  type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModalScrollable">Sign up</a>
                     </div>
                     % end
                 </div>
+                
             </div>
         </header>
+
+
+
         % if errorReg == True: 
         <div id="resultbg" class="container py-3 mt-5 col-md-9 col-lg-7 col-xl-6 rounded shadow-lg">
             <div class="row justify-content-center">

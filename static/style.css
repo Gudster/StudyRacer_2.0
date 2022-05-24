@@ -1,7 +1,7 @@
 body {
     font-family: Helvetica, sans-serif;
     background-image: url(toppng.com-checkered-flag-facebook-banner-1921x411.png) !important;
-    background-size: 1800px 300px;
+    background-size: 1800px 230px;
     background-repeat: no-repeat;
     background-position-x: center;
     background-position-y: -100px;
@@ -90,8 +90,8 @@ body {
     background-color: blue;
 }
 
-#StudyR {
-    height: 10%;
-    width: auto;
-    mix-blend-mode: difference;
+.StudyR {
+    height: auto !important;
+    width: 60% !important;
 }
+
