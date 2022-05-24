@@ -14,7 +14,7 @@
         <header id="headerBg" class="p-3 mb-3">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <div id="header-title" class="text-start me-auto">
+                    <div id="headerTitle" class="text-start me-auto">
                         <a href="/" id="" class="btn">
                             <img src="/static/hhej.png" id="StudyR" class="img-fluid" alt="..." > 
                         </a>
@@ -35,7 +35,7 @@
                     
                     % else:
                     <div class="text-end align-self-end">
-                        <a type="button" id="button-login" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#loginModalScrollable">Login</a> 
+                        <a type="button" id="buttonLogin" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#loginModalScrollable">Login</a> 
                         <a  type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModalScrollable">Sign up</a>
                     </div>
                     % end
@@ -74,7 +74,7 @@
             </div>
 
             <article class="container col-lg-10 mt-4 p-5">
-                <h2 class="text-white">Welcome {{ userName }}!</h2>
+                <h2 class="text-white">Welcome {{ username }}!</h2>
                 <div class="container d-flex justify-content-between text-white">
                     <div class="col-5 text-start d-flex row">
                         <h3>Custom race</h3>
@@ -124,8 +124,8 @@
                                             <label for="formGroupExampleInput2" class="form-label">Password</label>
                                             <input name= "password2" type="password" class="form-control" id="formGroupExampleInput2">
                                         </div>
-                                        <div id="custom-race-modal-footer" class="modal-footer">
-                                            <input type="submit" id="button-login-modal" class="btn btn-success m-0" value="Log in">      
+                                        <div id="customRaceModalFooter" class="modal-footer">
+                                            <input type="submit" id="buttonLoginModal" class="btn btn-success m-0" value="Log in">      
                                         </div>
                                     </div>
                                 </form>

@@ -13,7 +13,6 @@ body {
 }
 
 #headerStudy {
-#header-study {
     color: #8cce6e;
 }
 
@@ -21,15 +20,13 @@ body {
     color: #df5959;
 }
 
-#buttonCreate {
-#button-easy, #button-custom, #button-custom-race, #button-create {
+#buttonBeginner, #buttonCustom, #buttonCustomRace, #buttonCreate {
     background-color: #8cce6e;
     color: black;
     border-color: #304826;
 }
 
-#buttonBeginner, #buttonCustom, #buttonCustomRace {
-#button-login, #button-login-modal, #button-sign-up {
+#buttonLogin, #buttonLoginModal, #buttonSignUp {
     background-color: #8cce6e;
     color: black;
     border-color: rgba(255, 255, 255, 0);
@@ -41,8 +38,7 @@ body {
     border-color: #612828;
 }
 
-#customRaceModal {
-#custom-race-modal, #custom-race-modal-footer {
+#customRaceModal, #customRaceModalFooter {
     border-top: none;
     
 }

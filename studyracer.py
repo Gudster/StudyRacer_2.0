@@ -6,16 +6,16 @@ import json
 
 userLoggedIn = False
 signup = False
-userName = ""
+username = ""
 checkUserData = False
 errorReg = False
 
 @route("/", method="POST")
-def sign_up():
+def signup():
 
     global signup
     global userLoggedIn
-    global userName
+    global username
     global checkUserData 
     global errorReg 
 
@@ -47,10 +47,10 @@ def sign_up():
 
 
         for name in usernamesDatabase:
-            if(name != userName):
+            if(name != username):
                 
             
-                if len(userName) < 4 or len(userName) > 16: 
+                if len(username) < 4 or len(username) > 16: 
                     print ("Felaktigt ifyllt användarnamn")
                     errorReg=True 
                     
@@ -75,10 +75,10 @@ def sign_up():
 
 
                     cursor.execute(f'''INSERT INTO user_info(username, f_name, l_name, p_word, country)
-                    VALUES ('{userName}', '{firstName}', '{lastName}', '{password}', '{country}')''')
+                    VALUES ('{username}', '{firstName}', '{lastName}', '{password}', '{country}')''')
 
                     conn.commit()
-                    print(f"\n{userName}, {firstName}, {lastName}, {country} registrerad")
+                    print(f"\n{username}, {firstName}, {lastName}, {country} registrerad")
 
             else: 
                 checkUserData = False 
@@ -98,24 +98,22 @@ def sign_up():
             conn.close()
             userLoggedIn = True
             signup = True
-            return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName, checkUserData=checkUserData)
+            return template("index", userLoggedIn=userLoggedIn, signup=signup, username=username, checkUserData=checkUserData)
             
         else: 
-            return template("ErrorReg", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName, checkUserData=checkUserData, errorReg=errorReg)
+            return template("ErrorReg", userLoggedIn=userLoggedIn, signup=signup, username=username, checkUserData=checkUserData, errorReg=errorReg)
         
 
 
-            return template("index", userLoggedIn=userLoggedIn, signup=signup, username=username)
-
 @route("/", method="POST")
 def log_in():
-    global userName
+    global username
 
     
     try:
         logInName = getattr(request.forms, "logInName")
         password2 = getattr(request.forms, "password2")
-        userName = logInName
+        username = logInName
 
         conn = psycopg2.connect(database = "am0986",
                                 user = 'am0986',
@@ -125,7 +123,7 @@ def log_in():
 
         cursor = conn.cursor()
         cursor.execute('''SELECT username, p_word FROM user_info''')
-        listUserNames= cursor.fetchall()
+        listUsernames= cursor.fetchall()
 
         conn.commit()
         cursor.close()
@@ -133,8 +131,8 @@ def log_in():
 
 
 
-        for namePword in listUserNames:
-            if (namePword == userName and password2):
+        for namePword in listUsernames:
+            if (namePword == username and password2):
                 
     
          
@@ -154,15 +152,15 @@ def log_in():
         print("-"*30)
 
     finally:
-        if userLoggedIn== True:
+        if userLoggedIn == True:
             (conn)
             cursor.close()
             conn.close()
             userLoggedIn = True
-            redirect("index", userLoggedIn=userLoggedIn, userName=logInName)
+            redirect("index", userLoggedIn=userLoggedIn, username=logInName)
         else: 
             print("HEj hejjjjjjjjjj")
-            return template("ErrorReg", userLoggedIn=userLoggedIn, userName=logInName)
+            return template("ErrorReg", userLoggedIn=userLoggedIn, username=logInName)
 
 @route("/")
 def user_logged_in():
@@ -171,6 +169,8 @@ def user_logged_in():
 
     if userLoggedIn == True:
         return template("index", userLoggedIn=True, signup=signup, username=username)
+    else:
+        return template("index", userLoggedIn=False, signup=signup, username=username)
 
 
 
@@ -218,7 +218,7 @@ def user_profile():
     global username
     userLoggedIn = True 
 
-    return template("profile", userLoggedIn=userLoggedIn, userName=userName)
+    return template("profile", userLoggedIn=userLoggedIn, username=username)
 
 
 
