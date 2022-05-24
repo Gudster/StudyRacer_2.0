@@ -12,44 +12,49 @@
         <title>StudyRacer</title>
     </head>
 
-    <body id="bannerbg" class="bg-dark">
-        <div class="container">
-
-            <header class="text-white">
-                <div class="container">
-                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+    <body class="bg-dark d-flex flex-column h-100">
+        <header id="headerbg" class="p-3 mb-3">
+            <div class="container">
+                <div class="d-flex justify-content-evenly">
+                
+                    <div class="d-flex">
+                        <a href="/" class="StudyR">
+                            <img src="/static/SR1.png" class="img-fluid" alt="Study racer logo"> 
                         </a>
-                
-                        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                            <li><a href="/" class="nav-link px-2 text-warning">Home</a></li>
-                            <li><a href="/faq/" class="nav-link px-2 text-white">FAQs</a></li>
-                            <li><a href="/about/" class="nav-link px-2 text-white">About us</a></li>
-                        </ul>
-
-                        <div class="col text-center">
-                            <a id="titlelink" href="/" class="btn mt-2">
-                                <p id="hstudy" class="list-inline-item me-0 text-decoration-none">STUDY</p>
-                                <p id="hreacer" class="list-inline-item text-decoration-none">RACER</p>
-                            </a>
-                        </div>
-                
-                        <div class="text-end">
-                            <button type="button" class="btn btn-outline-light me-2">Login</button>
-                            <button type="button" class="btn btn-warning">Sign-up</button>
-                        </div>
-
                     </div>
+
+                    % if userLoggedIn == True:
+                    <div class="dropdown text-end d-flex align-items-end">
+                        <a href="#" class="d-block link-light text-decoration-none dropdown-toggle align-items-end" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            
+                            <img src="/static/pr3.png" alt="mdo" width="60" height="60" class="rounded-circle" title=""> 
+                        </a>
+
+                        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout">Sign out</a></li>
+                        </ul>
+                    </div> 
+                    
+                    % else:
+                    <div class="d-flex align-items-end">
+                        <a type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModalScrollable">Login</a> 
+                        <a  type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModalScrollable">Sign up</a>
+                    </div>
+                    % end
                 </div>
-            </header>
+                
+            </div>
+        </header>
+
 
 
             <div id="resultbg" class="container py-3 mt-5 col-md-9 col-lg-7 col-xl-6 rounded shadow-lg">
                 <div class="row justify-content-center">
                     <div class="text-white">
 
-						<h4>About StudyRacer</h4>
+						<h2>About StudyRacer </h2> <br>
 						<p>StudyRacer is created by a group of IA students at Malmö University during the spring semester 2022.
                             The goal of the site is to provide students of all levels a better and more fun
                             learning experience.
@@ -59,19 +64,40 @@
                             to remember and learn if we use more than one cognitive ability at a time and by using StudyRacer you will be reading and writing at the same time. 
                             But not only does StudyRacer provide you with a learning tool to help you remember and learn texts easier you will also get better at speed writing, a useful skill in today’s society. 
 						</p>
+                        
+                        <hr class="border-primary border-5 opacity-75 text-warning">
 
-						<h4>Contact</h4>
+						<h2>Contact</h2> <br>
 						<p>Do you wish to contact the founders of StudyRacer?</p>
-						<p>Kontaktuppgifter: /Formulär länkat till mail? </p>
-
-                        <div class="d-flex justify-content-start">
-                            <a id="submitbutton" class="btn btn-dark text-black mt-1" href="/racepage/">Starta race</a>                 
-                        </div>
+                        
+                        <!-- formuläret skickas ingenstans just nu.-->
+                        <form>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Your email address">
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write your message here"></textarea>
+                            </div>  
+                            <div class= "mb-3 pt-1">  
+                                <button type="submit" class="btn btn-warning">Send message</button>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
             </div>
         </div>
+
+        <footer id="footer-bottom" class="footer mt-auto py-1 border-top">
+            <div class="container">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+                    <li class="nav-item"><a href="/faq" class="nav-link px-2 text-muted">FAQs</a></li>
+                    <li class="nav-item"><a href="/about" class="nav-link px-2 text-muted">About</a></li>
+                </ul>
+                <p class="text-center text-muted">© 2022 StudyRacer</p>
+            </div>
+        </footer>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="/scripts/script.js"></script>
