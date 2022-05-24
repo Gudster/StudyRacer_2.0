@@ -219,7 +219,6 @@ def user_profile():
     return template("profile", userLoggedIn=userLoggedIn, username=username)
 
 
-
 @route("/racetext/save/", method="POST")
 def save_racetext ():
 
@@ -230,6 +229,34 @@ def save_racetext ():
     myFile.close()
 
     redirect("/racepage/usertext")
+
+
+@route("/result/", method="POST", userLoggedIn=userLoggedIn)
+def race_text_to_list():
+    '''gör om texten till en lista och beräknar användarens resultat i accuracy%'''
+
+    raceText = getattr(request.forms, "raceText")
+    userInput = getattr(request.forms, "userRaceInput")
+    raceTextAsList = raceText.split(" ")
+    userInputAsList = userInput.split(" ")
+
+    lastWord = raceTextAsList[-1]
+    lastInput = userInputAsList[-1]
+
+
+    matches = sum(a == b for a, b in zip(raceTextAsList, userInputAsList))
+    lenRaceText=len(raceTextAsList)
+    result = int(matches / lenRaceText * 100)
+
+    print("antal rätt", matches)
+    print("textens längd", lenRaceText)
+    print("procent", result)
+
+    
+    print(lastWord, lastInput)
+
+    return template("result", userResult=result, userMatches=matches, textLength=lenRaceText, userLoggedIn=userLoggedIn)
+
 
 @route("/static/<filename>")
 def static_files(filename):
