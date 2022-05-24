@@ -164,7 +164,7 @@ def save_racetext ():
 
     redirect("/racepage/usertext")
 
-@route("/static/<filename>/")
+@route("/static/<filename>")
 def static_files(filename):
 
     return static_file(filename, root="static")
