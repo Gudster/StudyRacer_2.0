@@ -11,10 +11,9 @@
     </head>
 
     <body class="bg-dark d-flex flex-column h-100">
-        <header id="headerbg" class="p-3 mb-3">
+        <header id="headerBg" class="p-3 mb-3">
             <div class="container">
                 <div class="d-flex justify-content-evenly">
-                
                     <div class="d-flex">
                         <a href="/" class="StudyR">
                             <img src="/static/SR1.png" class="img-fluid" alt="Study racer logo"> 
@@ -24,14 +23,13 @@
                     % if userLoggedIn == True:
                     <div class="dropdown text-end d-flex align-items-end">
                         <a href="#" class="d-block link-light text-decoration-none dropdown-toggle align-items-end" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            
                             <img src="/static/pr3.png" alt="mdo" width="60" height="60" class="rounded-circle" title=""> 
                         </a>
 
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/profile/">Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/logout">Sign out</a></li>
+                            <li><a class="dropdown-item" href="/logout/">Sign out</a></li>
                         </ul>
                     </div> 
                     
@@ -42,7 +40,6 @@
                     </div>
                     % end
                 </div>
-                
             </div>
         </header>
 
@@ -51,7 +48,7 @@
             <div class="row justify-content-center">
                 <div class="text-white">
                     <img src="/static/pr3.png" alt="mdo" width="60" height="60" class="rounded-circle" title=""> 
-                    <h2> {{ userName }}'s profile</h2>
+                    <h2> {{ username }}'s profile</h2>
        
                     <h3 id="latest10">10 latest races: </h3>
                     <h3 id="latest100">10 latest races: </h3>
@@ -60,12 +57,12 @@
         </div>
 
 
-        <footer id="footer-bottom" class="footer mt-auto py-1 border-top">
+        <footer id="footerBottom" class="footer mt-auto py-1 border-top">
             <div class="container">
                 <ul class="nav justify-content-center">
                     <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
-                    <li class="nav-item"><a href="/faq" class="nav-link px-2 text-muted">FAQs</a></li>
-                    <li class="nav-item"><a href="/about" class="nav-link px-2 text-muted">About</a></li>
+                    <li class="nav-item"><a href="/faq/" class="nav-link px-2 text-muted">FAQs</a></li>
+                    <li class="nav-item"><a href="/about/" class="nav-link px-2 text-muted">About</a></li>
                 </ul>
                 <p class="text-center text-muted">© 2022 StudyRacer</p>
             </div>

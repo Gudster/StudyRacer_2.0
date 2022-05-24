@@ -8,8 +8,8 @@ userLoggedIn = False
 signup = False
 username = ""
 checkUserData = False
-errorReg=False
-errorlogin=False
+errorReg = False
+errorLogin = False
 
 @route("/", method="POST")
 def signup():
@@ -48,7 +48,7 @@ def signup():
 
 
         for name in usernamesDatabase:
-            if(name != username):
+            if (name != username):
                 
             
                 if len(username) < 4 or len(username) > 16: 
@@ -103,13 +103,11 @@ def signup():
             
         else: 
             return template("ErrorReg", userLoggedIn=userLoggedIn, signup=signup, username=username, checkUserData=checkUserData, errorReg=errorReg)
-        
 
-
-@route("/login", method="POST")
+@route("/login/", method="POST")
 def log_in():
     global username
-    global errorlogin
+    global errorLogin
     global userLoggedIn
     
     try:
@@ -155,10 +153,10 @@ def log_in():
             cursor.close()
             conn.close()
         
-            return template("index", userLoggedIn=userLoggedIn, userName=logInName)
+            return template("index", userLoggedIn=userLoggedIn, username=logInName)
         else: 
             print("Inlogg fel")
-            return template("errorlogin", errorlogin=errorlogin, userLoggedIn=userLoggedIn, userName=logInName)
+            return template("errorLogin", errorLogin=errorLogin, userLoggedIn=userLoggedIn, userName=logInName)
 
 @route("/")
 def user_logged_in():
@@ -170,10 +168,7 @@ def user_logged_in():
     else:
         return template("index", userLoggedIn=False, signup=signup, username=username)
 
-
-
-
-@route("/racepage/<text>")
+@route("/racepage/<text>/")
 def race(text):
 
     if text == "beginner":
@@ -218,8 +213,6 @@ def user_profile():
 
     return template("profile", userLoggedIn=userLoggedIn, username=username)
 
-
-
 @route("/racetext/save/", method="POST")
 def save_racetext ():
 
@@ -231,10 +224,18 @@ def save_racetext ():
 
     redirect("/racepage/usertext")
 
-@route("/static/<filename>")
+@route("/static/<filename>/")
 def static_files(filename):
 
     return static_file(filename, root="static")
+
+@route("/faq/")
+def faq (): 
+    return template("faq", userLoggedIn=userLoggedIn, userName=username)
+
+@route("/about/")
+def about (): 
+    return template("about",  userLoggedIn=userLoggedIn, userName=username)
 
 @error()
 def error(error):
@@ -243,14 +244,6 @@ def error(error):
     """
 
     return template("error")
-
-@route("/faq")
-def faq (): 
-    return template("faq", userLoggedIn=userLoggedIn, userName=userName)
-
-@route("/about")
-def about (): 
-    return template("about",  userLoggedIn=userLoggedIn, userName=userName)
 
 @route("/static/<filename>")
 def static_files(filename):

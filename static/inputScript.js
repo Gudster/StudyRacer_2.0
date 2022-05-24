@@ -128,15 +128,15 @@ console.log(seconds)
 
 
 
-$(function(){
-    $("#quoteInput").keydown(function(e){
+$(function() {
+    $("#quoteInput").keydown(function (e) {
       if (e.code !== "Backspace")
         $("#count").text(++strokeCount);
     });
 });
 
-$(function(){
-  $("#quoteInput").keydown(function(e){
+$(function() {
+  $("#quoteInput").keydown(function (e) {
     if (e.shiftKey)
       $("#count").text(--strokeCount);
   });
