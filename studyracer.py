@@ -21,7 +21,6 @@ def signup():
     global errorReg 
 
 
-
     try:
         username = getattr(request.forms, "username")
         firstName = getattr(request.forms, "firstName")
@@ -245,13 +244,13 @@ def faq ():
 def about (): 
     return template("about",  userLoggedIn=userLoggedIn, userName=username)
 
-@error()
-def error(error):
+@error(404)
+def error404(error):
     """
-    Hanterar: Error 404 filen hittades inte.
+    #Hanterar: Error 404 filen hittades inte.
     """
 
-    return template("error")
+    return template("error", userLoggedIn=userLoggedIn, errorLogin=errorLogin)
 
 @route("/static/<filename>")
 def static_files(filename):

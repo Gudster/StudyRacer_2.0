@@ -95,3 +95,7 @@ body {
     width: 60% !important;
 }
 
+#welcome {
+    text-shadow: 0 0 4px black; 
+}
+
