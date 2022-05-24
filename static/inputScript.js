@@ -38,7 +38,7 @@ quoteInputElement.addEventListener('keyup', () => {
 
   let incorrect = false;
   let correct = true;
-  let incorrectCharacters = 0;
+  let inccorectCharacters = 0;
   
   arrayQuote.forEach((characterSpan, index) => {
     const character = arrayValue[index]
@@ -52,37 +52,22 @@ quoteInputElement.addEventListener('keyup', () => {
       characterSpan.classList.add('correct')
       characterSpan.classList.remove('incorrect')
       quoteInputElement.classList.remove('inputIncorrect')
-
+      
+      while (inccorectCharacters === 1){
+        characterSpan.classList.add('incorrect')
+        quoteInputElement.classList.add('inputIncorrect')
+        break;
+      }
+      
     } else {
       characterSpan.classList.remove('correct')
       characterSpan.classList.add('incorrect')
       quoteInputElement.classList.add('inputIncorrect')
       incorrect = true
       correct = false
-      /*if (incorrectCharacters > 2) {
-        let inputBox = document.getElementById("quoteInput");
-
-        let invalidChars = [
-          "-",
-          "+",
-          "e",
-          "q",
-          "w",
-          "r",
-          "t",
-          "y",
-        ];
-        
-        inputBox.addEventListener("keydown", function(e) {
-          if (invalidChars.includes(e.key)) {
-            e.preventDefault();
-          }
-          else if (inputBox = null) {
-            e.allowDefault() = true
-          }
-        });
-      }*/
+      inccorectCharacters = 1;
     }
+  
   })
 
   if (correct) { 
@@ -146,12 +131,6 @@ document.getElementById('quoteInput').addEventListener('keydown', event=>{
 		//countWords();
 	}
 });
-
-function total_time(){
-// Denna funktionen ska presentera tiden spenderad i racet på resultatsidan
-
-
-};
 
 const messageEle = document.getElementById('quoteInput');
 const counterEle = document.getElementById('count');
