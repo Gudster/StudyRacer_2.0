@@ -190,12 +190,32 @@ def race(text):
         myFile.close()
 
     else:    
-        myFile = open(f"articles/{text}.json", "r")
+        myFile = open(f"articles/usertext.json", "r")
         textToRace = myFile.read()
         TTR = json.loads(textToRace)
         myFile.close() 
 
     return template("racepage", textFile=TTR, userLoggedIn=userLoggedIn)
+
+@route("/customracepage/usertext/")
+def custom_race():
+    myFile = open(f"articles/usertext.json", "r")
+    textToRace = myFile.read()
+    TTR = json.loads(textToRace)
+    myFile.close()
+
+    return template("customracepage", textFile=TTR, userLoggedIn=userLoggedIn)
+
+@route("/racetext/save/", method="POST")
+def save_racetext ():
+
+    raceText = str(request.forms.get("userRaceText"))
+
+    myFile=open("articles/usertext.json", "w")
+    myFile.write(json.dumps(raceText))
+    myFile.close()
+
+    redirect("/customracepage/usertext/")
 
 @route("/logout/")
 def logout_html():
@@ -213,16 +233,6 @@ def user_profile():
 
     return template("profile", userLoggedIn=userLoggedIn, username=username)
 
-@route("/racetext/save/", method="POST")
-def save_racetext ():
-
-    raceText = str(request.forms.get("userRaceText"))
-
-    myFile=open("articles/usertext.json", "w")
-    myFile.write(json.dumps(raceText))
-    myFile.close()
-
-    redirect("/racepage/usertext/")
 
 @route("/result/", method="POST", userLoggedIn=userLoggedIn)
 def race_text_to_list():

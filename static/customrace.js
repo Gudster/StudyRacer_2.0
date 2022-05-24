@@ -2,11 +2,11 @@
 // https://github.com/WebDevSimplified/JS-Speed-Typing-Game/blob/master/script.js
 'USE STRICT'
 
-const RANDOM_QUOTE_API_URL = require('./articles/usertext.json')
+const RANDOM_QUOTE_API_URL = require('/articles/usertext.json')
 const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer2')
-
+console.log(RANDOM_QUOTE_API_URL)
 
 // Sparar tid i olika variabler
 let miliSec = 00;
@@ -82,8 +82,10 @@ quoteInputElement.addEventListener('keyup', () => {
 
 function getRandomQuote() {
   return fetch(RANDOM_QUOTE_API_URL)
-    .then(response => response.json())
-    .then(data => data.content)
+    .then(response => {
+        return response.json();
+    })
+    .then(jsondata => console.log(jsondata))
 }
 
 async function renderNewQuote() {
