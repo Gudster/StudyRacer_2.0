@@ -26,7 +26,6 @@ document.getElementById('totalMin').innerHTML = totalMin + "m ";
 document.getElementById('totalSec').innerHTML = totalSec + "s";
 document.getElementById('totalAcc').innerHTML = totalAccuracy + "%";
 
-
 // timer_main 
 let int = null;
 // ?????

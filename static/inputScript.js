@@ -211,8 +211,6 @@ function start_timer(){
 	}
 }
 
-
-
 $(function() {
     $("#quoteInput").keydown(function (e) {
       if (e.code !== "Backspace")
@@ -226,8 +224,6 @@ $(function() {
       $("#count").text(--strokeCount);
   });
 });
-
-
 
 
 renderNewQuote();
