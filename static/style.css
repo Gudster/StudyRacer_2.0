@@ -38,7 +38,7 @@ body {
     border-color: #612828;
 }
 
-#customRaceModal, #customRaceModalFooter {
+#customRaceModal, #customRaceModalFooter, #signupModalFooter {
     border-top: none;
     
 }
@@ -99,3 +99,8 @@ body {
     text-shadow: 0 0 4px black; 
 }
 
+.box-bg {
+    background-color: rgba(32, 32, 32, 0.775);
+    border: solid 2px rgba(158, 158, 158, 0.663);
+    border-radius: 7px;
+}

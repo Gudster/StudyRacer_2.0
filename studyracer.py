@@ -221,7 +221,7 @@ def save_racetext ():
     myFile.write(json.dumps(raceText))
     myFile.close()
 
-    redirect("/racepage/usertext")
+    redirect("/racepage/usertext/")
 
 @route("/result/", method="POST", userLoggedIn=userLoggedIn)
 def race_text_to_list():

@@ -2,7 +2,7 @@
 // https://github.com/WebDevSimplified/JS-Speed-Typing-Game/blob/master/script.js
 'USE STRICT'
 
-const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random'
+const RANDOM_QUOTE_API_URL = require('./articles/usertext.json')
 const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer2')
