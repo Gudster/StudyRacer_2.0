@@ -6,12 +6,30 @@ const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random'
 const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer2')
-const wpmElement = document.getElementById('wpmUpdater')
+
+
+// Sparar tid i olika variabler
+let miliSec = 00;
+let sec = 00;
+let min = 00;
+
+// Hämtar vilka IDs som ska påverkas i HTML
+let appendMin = document.getElementById("min");
+let appendSec = document.getElementById("sec");
+let appendMiliSec = document.getElementById("miliSec");
+let pressToStart = document.getElementById("quoteInput");
+let appendTotalmin = document.getElementById("setMin");
+let wpmElement = document.getElementById('wpmUpdater');
+
+let int = null;
 
 let quoteWords = [];
 let indexWord = 0;
 let completedWords = "";
 let strokeCount = 1;
+
+let totalMin
+let totalSec
 
 
 quoteInputElement.addEventListener('keyup', () => {
@@ -21,7 +39,7 @@ quoteInputElement.addEventListener('keyup', () => {
 
   let incorrect = false;
   let correct = true;
-  let incorrectCharacters = 0;
+  let inccorectCharacters = 0;
   
   arrayQuote.forEach((characterSpan, index) => {
     const character = arrayValue[index]
@@ -35,23 +53,30 @@ quoteInputElement.addEventListener('keyup', () => {
       characterSpan.classList.add('correct')
       characterSpan.classList.remove('incorrect')
       quoteInputElement.classList.remove('inputIncorrect')
-
+      
+      while (inccorectCharacters === 1){
+        characterSpan.classList.add('incorrect')
+        quoteInputElement.classList.add('inputIncorrect')
+        break;
+      }
+      
     } else {
       characterSpan.classList.remove('correct')
       characterSpan.classList.add('incorrect')
       quoteInputElement.classList.add('inputIncorrect')
       incorrect = true
       correct = false
-      incorrectCharacters ++;
-      console.log(incorrectCharacters)
+      inccorectCharacters = 1;
     }
+  
   })
+
   if (correct) { 
-  document.forms['myForm'].submit()
-  localStorage.setItem('storeMin', JSON.stringify(storeTotalMin));
-  localStorage.setItem('storeSec', JSON.stringify(storeTotalSec));
-  localStorage.setItem('storeWpm', JSON.stringify(storeTotalWpm));
-  localStorage.setItem('storeStroke', JSON.stringify(strokeCount));
+    localStorage.setItem('appendMin', document.getElementById('min').innerHTML);
+    localStorage.setItem('appendSec', document.getElementById('sec').innerHTML);
+    localStorage.setItem('storeWPM', document.getElementById('wpmUpdater').innerHTML);
+    document.forms['myForm'].submit();
+
   }
 })
 
@@ -75,8 +100,6 @@ async function renderNewQuote() {
     quote.split(' ').forEach((word, index) => {
       const wordSpan = [word, index]
       
-      console.log(wordSpan)
-      return wordSpan
     })
     
     quoteInputElement.value = null;
@@ -91,40 +114,102 @@ inputValue.addEventListener('keypress', function (e) {
     if (e.target.value.trim() === quoteWords[indexWord]) {
       completedWords += e.target.value;
       e.target.value = "";
-      indexWord ++;
+      indexWord++;
+
     }
   }
 });
 
-inputValue.addEventListener('keypress', function (e) {
-  if (e.code !== null) {
-    wordsPerMinute = Math.trunc((indexWord - 1) / (sec / 60));
-  
-    wpmElement.innerHTML = wordsPerMinute
-    storeTotalWpm = wordsPerMinute
-    
-    localStorage.setItem('storeWpm', JSON.stringify(storeTotalWpm));
+function submit_button_save() {
 
+  localStorage.setItem('appendMin', document.getElementById('min').innerHTML);
+  localStorage.setItem('appendSec', document.getElementById('sec').innerHTML);
+  localStorage.setItem('storeWPM', document.getElementById('wpmUpdater').innerHTML);
+
+	clearInterval(int);
+}
+
+document.getElementById('quoteInput').addEventListener('keydown', event=>{
+	if(event.code === 'Space'){
+		//countWords();
+	}
+});
+
+const messageEle = document.getElementById('quoteInput');
+const counterEle = document.getElementById('count');
+
+messageEle.addEventListener('quoteInput', function (e) {
+    const target = e.target;
+
+    // Get the `maxlength` attribute
+    const maxLength = target.getAttribute('maxlength');
+
+    // Count the current number of characters
+    const currentLength = target.value.length;
+
+    counterEle.innerHTML = `${currentLength}`;
+});
+
+function timer_main() {
+	//Om användaren trycker på någon tangent startar timern
+	document.getElementById('quoteInput').addEventListener('keydown', event=>{
+		if(event.int !== null){
+			clearInterval(int);
+		}
+		int = setInterval(start_timer, 10);
+	});
+
+	// Om användaren trycker på "Escape" så pausas timern
+	document.getElementById('quoteInput').addEventListener('keydown', event=>{
+		if(event.key === "Escape"){
+			clearInterval(int);
+
+      localStorage.setItem('appendMin', document.getElementById('min').innerHTML);
+      localStorage.setItem('appendSec', document.getElementById('sec').innerHTML);
+      localStorage.setItem('storeWPM', document.getElementById('wpmUpdater').innerHTML)
   }
-})
+  })}
 
-let startTime
-function startTimer() {
-  timerElement.innerText = 0
-  startTime = new Date()
-  setInterval(() => {
-    timer.innerText = getTimerTime();
-    seconds ++;
-    return seconds
-  }, 1000)
+function start_timer(){
+// Funktion som räknar tid och ökar värden vid angivna gränser samt uppdaterar words per minute
+// varje sekund
+
+	miliSec ++;
+	storeTotalMin = min;
+
+
+	if (miliSec < 9){
+		appendMiliSec.innerHTML = "0" + miliSec;
+	}
+
+	if (miliSec > 9){
+		appendMiliSec.innerHTML = miliSec;
+	}
+
+	if (miliSec > 99){
+		sec ++;
+		appendSec.innerHTML = "0" + sec;
+		miliSec = 0;
+		appendMiliSec.innerHTML = "0" + 0;
+    let totalTime = (min * 60 + + sec)/ 60;
+    wpmElement.innerHTML = Math.trunc(indexWord / totalTime)
+	}
+
+	if (sec < 9){
+		appendSec.innerHTML = "0" + sec;
+	}
+
+	if (sec > 9){
+		appendSec.innerHTML = sec;
+	}
+
+	if (sec > 59){
+		min ++;
+		appendMin.innerHTML = "0" + min;
+		sec = 0;
+		appendSec.innerHTML ="0" + + 0;
+	}
 }
-
-function getTimerTime() {
-  return Math.floor((new Date() - startTime) / 1000)
-}
-
-let seconds = getTimerTime();
-console.log(seconds)
 
 
 

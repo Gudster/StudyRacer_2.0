@@ -54,9 +54,7 @@ function timer_main() {
 			countWords();
 
 			// Put the object into storage
-			localStorage.setItem('storeMin', JSON.stringify(storeTotalMin));
-			localStorage.setItem('storeSec', JSON.stringify(storeTotalSec));
-			localStorage.setItem('storeWords', JSON.stringify(storeTotalWords));
+
 
 		}
 	});

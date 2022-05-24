@@ -1,12 +1,12 @@
 // Sparar tid i olika variabler
-var miliSec = 00;
-var sec = 00;
-var min = 00;
+let miliSec = 00;
+let sec = 00;
+let min = 00;
 // Hämtar vilka IDs som ska påverkas i HTML
-var appendMin = document.getElementById("min");
-var appendSec = document.getElementById("sec");
-var appendMiliSec = document.getElementById("miliSec");
-var pressToStart = document.getElementById("quoteInput");
+let appendMin = document.getElementById("min");
+let appendSec = document.getElementById("sec");
+let appendMiliSec = document.getElementById("miliSec");
+let pressToStart = document.getElementById("quoteInput");
 let appendTotalmin = document.getElementById("setMin");
 
 let int = null;
@@ -19,9 +19,6 @@ let int = null;
 
 
 var strokeCount = 0;
-
-//let wordsPerMinuteUpdater = Math.trunc(writtenTextArray / (sec / 60));
-
 
 
 
@@ -87,39 +84,6 @@ messageEle.addEventListener('quoteInput', function (e) {
     counterEle.innerHTML = `${currentLength}`;
 });
 
-/*function countWords() {
-
-	// Get the quoteInput text value
-	let text = document.getElementById("quoteInput").value;
-
-	// Initialize the word counter
-	var numWords = 0;
-
-	// Loop through the text
-	// and count spaces in it
-	for (var i = 0; i < text.length; i++) {
-		var currentCharacter = text[i];
-
-		// Check if the character is a space
-		if (currentCharacter == " ") {
-			numWords += 1;
-		}
-	}
-
-	// Add 1 to make the count equal to
-	// the number of words
-	// (count of words = count of spaces + 1)
-	numWords += 1;
-
-	//Spara numWords till storeTotalWords
-	storeTotalWords = numWords;
-
-	// Display it as output
-	document.getElementById("show")
-		.innerHTML = numWords;
-}
-*/
-
 function start_timer(){
 // Funktion som räknar tid och ökar värden vid angivna gränser
 
@@ -156,45 +120,12 @@ function start_timer(){
 		sec = 0;
 		appendSec.innerHTML ="0" + + 0;
 	}
+
 }
 
 //function clear_wpm() {
 //	document.getElementById("resultwpm").innerHTML = undefined;
 //}
-
-// Check if last word is equal to the last word of the text and the amount of words are the same, 
-// if it is, submit the text. 
-messageEle.addEventListener('quoteInput', function (e) {
-	console.log("din text: " + messageEle.value)
-	// Split the written text into an array, space makes new arrayitem
-	let writtenTextArray = messageEle.value.split(" ")
-	// Check the last word of the array
-	let writtenTextLastWord = writtenTextArray.pop();
-	// count the amount of arrayitems
-	const writtenTextLength = writtenTextArray.length;
-
-	console.log(writtenTextArray)
-	console.log(writtenTextLastWord)
-	console.log("length quoteInput: " + writtenTextLength)
-
-	// get the text the user is supposed to race
-	const raceText = document.getElementById("text").value
-	// Split the text into an array
-	const raceTextArray = raceText.split(" ");
-	// Check the last word of the array
-	const raceTextLastWord = raceTextArray.pop();
-	// Count the amount of arrayitems
-	const raceTextLength = raceTextArray.length;
-	console.log(raceTextArray);
-	console.log (raceTextLastWord);
-	console.log("length text: " + raceTextLength)
-
-	// Checks if the last written word is equal to the last word of the race, and if the number of arrayitems are
-	// the same, if this is the case, finish the race.
-	if (writtenTextLastWord === raceTextLastWord && writtenTextLength === raceTextLength) {
-		document.forms["myForm"].submit();
-	}
-}); 
 
 //function wordsPerMinuteUpdater() {
     //document.getElementById("wpmUpdater").innerHTML = wordsPerMinuteUpdater;
