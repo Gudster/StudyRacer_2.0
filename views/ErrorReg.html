@@ -42,72 +42,60 @@
                 </div>
             </div>
         </header>
-
-            
-        <main class="container-md text-center flex-shrink-0 mt-5">
-            <div class="text-center">
+        % if errorReg == True: 
+        <div id="resultbg" class="container py-3 mt-5 col-md-9 col-lg-7 col-xl-6 rounded shadow-lg">
+            <div class="row justify-content-center">
                 <div class="text-white">
-                    <div>
-                        <p>Words per minute: 
-                            <span id="resultwpm"></span>
-                        </p>
-                    </div>
 
-                    <div>
-                        <p>Total time: 
-                            <span id="totalMin"></span><span id="totalSec"></span>
-                        </p>
-                    </div>
-
-                    <div>
-                        <p>Accuracy: 
-                            <span id="totalAcc"></span>
-                        </p>
+                    <h4>Something went wrong with your registration!</h4>
+                    <p>Please follow the instructions:</p>
+                    <p>Username must be at least 4 characters and a maximum of 16 characters.</p>
+                    <p>Password must be at least 8 caharacters.</p>
+                    <div class="d-flex justify-content-start">
+                        <a id="submitbutton" class="btn btn-warning text-black mt-1" href="/">Try again</a>                 
                     </div>
                 </div>
             </div>
+        </div>
+        % else: 
+        <div id="resultbg" class="container py-3 mt-5 col-md-9 col-lg-7 col-xl-6 rounded shadow-lg">
+            <div class="row justify-content-center">
+                <div class="text-white">
 
-            <div class="mt-5">
-                <h3 class="text-white">Race again:</h3>
-                <div class="d-inline-flex justify-content-center">
-                    <a id="button-easy" href="/racepage/beginner" type="button" class="btn btn-success ms-2">Beginner</a>
-                    <a id="button-medium" href="/racepage/novice" type="button" class="btn btn-warning ms-2 ">Novice</a>
-                    <a id="button-hard" href="/racepage/master" type="button" class="btn btn-danger ms-2">Master</a>
-                </div>                     
-            </div>
-
-            <div id="resultbg" class="container py-3 mt-5 col-md-9 col-lg-7 col-xl-6 d-flex justify-content-evenly">
-                    <div>
-                        <canvas id="myChartAcc" width="400" height="350"></canvas>
+                    <h4>Username already exist!</h4>
+                    <p> Please try again</p>
+                    <div class="d-flex justify-content-start">
+                        <a id="submitbutton" class="btn btn-warning text-black mt-1" href="/">Try again</a>                 
                     </div>
-                    <div>
-                        <canvas id="myChartWpm" width="400" height="350"></canvas>
-                    </div>
+                </div>
             </div>
-
-        </main>
+        </div>
+        %end
             
+    
+    
+
+
+    
+    
+
+
 
 
         <footer id="footer-bottom" class="footer mt-auto py-1 border-top">
             <div class="container">
                 <ul class="nav justify-content-center">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+                    <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+                    <li class="nav-item"><a href="/faq" class="nav-link px-2 text-muted">FAQs</a></li>
+                    <li class="nav-item"><a href="/about" class="nav-link px-2 text-muted">About</a></li>
                 </ul>
                 <p class="text-center text-muted">© 2022 StudyRacer</p>
             </div>
         </footer>
 
         
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="/node_modules/chart.js/dist/chart.js"></script>
-        <script src="/static/script3.js"></script>
-        <script src="/static/charts.js"></script>
-
-    </body>
     
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
 
-</html>
+    </body>    

@@ -1,10 +1,10 @@
 body {
     font-family: Helvetica, sans-serif;
     background-image: url(toppng.com-checkered-flag-facebook-banner-1921x411.png) !important;
-    background-size: 1800px 200px;
+    background-size: 1800px 300px;
     background-repeat: no-repeat;
     background-position-x: center;
-    background-position-y: -80px;
+    background-position-y: -100px;
     background-blend-mode: color-dodge;
 }
 
@@ -13,6 +13,7 @@ body {
 }
 
 #headerStudy {
+#header-study {
     color: #8cce6e;
 }
 
@@ -21,15 +22,17 @@ body {
 }
 
 #buttonCreate {
+#button-easy, #button-custom, #button-custom-race, #button-create {
     background-color: #8cce6e;
     color: black;
     border-color: #304826;
 }
 
 #buttonBeginner, #buttonCustom, #buttonCustomRace {
+#button-login, #button-login-modal, #button-sign-up {
     background-color: #8cce6e;
     color: black;
-    border-color: #304826;
+    border-color: rgba(255, 255, 255, 0);
 }
 
 #buttonMaster {
@@ -39,8 +42,9 @@ body {
 }
 
 #customRaceModal {
+#custom-race-modal, #custom-race-modal-footer {
     border-top: none;
-    padding: 0;
+    
 }
 
 .quote-display {
@@ -88,4 +92,10 @@ body {
 }
 .inputCorrect {
     background-color: blue;
+}
+
+#StudyR {
+    height: 10%;
+    width: auto;
+    mix-blend-mode: difference;
 }

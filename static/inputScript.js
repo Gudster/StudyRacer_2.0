@@ -11,11 +11,8 @@ const wpmElement = document.getElementById('wpmUpdater')
 let quoteWords = [];
 let indexWord = 0;
 let completedWords = "";
+let strokeCount = 1;
 
-let totalMin
-let totalSec
-
-let calculatedTime = totalMin * 60 + + totalSec;
 
 quoteInputElement.addEventListener('keyup', () => {
   const arrayQuote = quoteDisplayElement.querySelectorAll('span')
@@ -47,36 +44,14 @@ quoteInputElement.addEventListener('keyup', () => {
       correct = false
       incorrectCharacters ++;
       console.log(incorrectCharacters)
-      /*if (incorrectCharacters > 2) {
-        let inputBox = document.getElementById("quoteInput");
-
-        let invalidChars = [
-          "-",
-          "+",
-          "e",
-          "q",
-          "w",
-          "r",
-          "t",
-          "y",
-        ];
-        
-        inputBox.addEventListener("keydown", function(e) {
-          if (invalidChars.includes(e.key)) {
-            e.preventDefault();
-          }
-          else if (inputBox = null) {
-            e.allowDefault() = true
-          }
-        });
-      }*/
     }
   })
   if (correct) { 
   document.forms['myForm'].submit()
   localStorage.setItem('storeMin', JSON.stringify(storeTotalMin));
   localStorage.setItem('storeSec', JSON.stringify(storeTotalSec));
-  localStorage.setItem('storeWords', JSON.stringify(storeTotalWords));
+  localStorage.setItem('storeWpm', JSON.stringify(storeTotalWpm));
+  localStorage.setItem('storeStroke', JSON.stringify(strokeCount));
   }
 })
 
@@ -88,7 +63,9 @@ function getRandomQuote() {
 
 async function renderNewQuote() {
   const quote = await getRandomQuote();
-  quoteWords = quote.split(" ");
+  quoteWords = quote.split(' ');
+  totalCharacterLenght = quote.split('').length;
+  console.log(totalCharacterLenght)
   quoteDisplayElement.innerHTML = ''
   quote.split('').forEach(character => {
     const characterSpan = document.createElement('span')
@@ -103,30 +80,33 @@ async function renderNewQuote() {
     })
     
     quoteInputElement.value = null;
-    
+    localStorage.setItem('charLength', JSON.stringify(totalCharacterLenght));
   }
 
 const inputValue = document.getElementById('quoteInput');
 const raceText = document.getElementById('quoteDisplay');
 
 inputValue.addEventListener('keypress', function (e) {
-  if (e.code === "Space") {
+  if (e.code !== null) {
     if (e.target.value.trim() === quoteWords[indexWord]) {
       completedWords += e.target.value;
       e.target.value = "";
-      indexWord++;
-
-      wordsPerMinute = Math.trunc((indexWord + 1) / (calculatedTime / 60));
-
-      wpmElement.innerHTML = wordsPerMinute
-
-      console.log(wordsPerMinute)
-      console.log(calculatedTime)
-      console.log(indexWord)
+      indexWord ++;
     }
   }
 });
 
+inputValue.addEventListener('keypress', function (e) {
+  if (e.code !== null) {
+    wordsPerMinute = Math.trunc((indexWord - 1) / (sec / 60));
+  
+    wpmElement.innerHTML = wordsPerMinute
+    storeTotalWpm = wordsPerMinute
+    
+    localStorage.setItem('storeWpm', JSON.stringify(storeTotalWpm));
+
+  }
+})
 
 let startTime
 function startTimer() {
@@ -145,5 +125,24 @@ function getTimerTime() {
 
 let seconds = getTimerTime();
 console.log(seconds)
+
+
+
+$(function(){
+    $("#quoteInput").keydown(function(e){
+      if (e.code !== "Backspace")
+        $("#count").text(++strokeCount);
+    });
+});
+
+$(function(){
+  $("#quoteInput").keydown(function(e){
+    if (e.shiftKey)
+      $("#count").text(--strokeCount);
+  });
+});
+
+
+
 
 renderNewQuote();

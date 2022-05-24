@@ -6,14 +6,20 @@ import json
 
 userLoggedIn = False
 signup = False
-username = ""
-logInName = ""
+userName = ""
+checkUserData = False
+errorReg = False
 
 @route("/", method="POST")
 def sign_up():
 
     global signup
     global userLoggedIn
+    global userName
+    global checkUserData 
+    global errorReg 
+
+
 
     try:
         username = getattr(request.forms, "username")
@@ -21,46 +27,95 @@ def sign_up():
         lastName = getattr(request.forms, "lastName")
         password = getattr(request.forms, "password")
         country = getattr(request.forms, "country")
-
-        conn = psycopg2.connect(database = "am0986",
-                                user = 'am0986',
-                                password = 'j6uv3f3d',
-                                host = 'pgserver.mau.se',
-                                port = '5432')
+        
+        #Databas, hämta alla användarnann 
+        conn = psycopg2.connect(database="am0986",
+                                    user='am0986',
+                                    password='j6uv3f3d',
+                                    host='pgserver.mau.se',
+                                    port='5432')
 
         conn.autocommit = True
         cursor = conn.cursor()
-        cursor.execute(f'''INSERT INTO user_info(username, f_name, l_name, p_word, country)
-        VALUES ('{username}', '{firstName}', '{lastName}', '{password}', '{country}')''')
+        
+        cursor.execute('''SELECT username FROM user_info''')
+        usernamesDatabase= cursor.fetchall()
 
         conn.commit()
+        cursor.close()
+        conn.close()
 
-        print(f"\n{username}, {firstName}, {lastName}, {country} registrerad")
+
+        for name in usernamesDatabase:
+            if(name != userName):
+                
+            
+                if len(userName) < 4 or len(userName) > 16: 
+                    print ("Felaktigt ifyllt användarnamn")
+                    errorReg=True 
+                    
+
+                elif len(password) <8: 
+                    print ("Fel längd på lösen!")
+                    errorReg=True 
+                
+
+
+                else:
+                    checkUserData = True 
+                    conn = psycopg2.connect(database="am0986",
+                                            user='am0986',
+                                            password='j6uv3f3d',
+                                            host='pgserver.mau.se',
+                                            port='5432')
+
+                    conn.autocommit = True
+                    cursor = conn.cursor()
+
+
+
+                    cursor.execute(f'''INSERT INTO user_info(username, f_name, l_name, p_word, country)
+                    VALUES ('{userName}', '{firstName}', '{lastName}', '{password}', '{country}')''')
+
+                    conn.commit()
+                    print(f"\n{userName}, {firstName}, {lastName}, {country} registrerad")
+
+            else: 
+                checkUserData = False 
+            break       
 
     except (Exception, Error) as error:
         print("\nRegistrering misslyckades")
         print("-"*30)
         print(error)
         print("-"*30)
-
+        checkUserData = False 
+                    
     finally:
-        if (conn):
+        if checkUserData == True: 
+            (conn)
             cursor.close()
             conn.close()
             userLoggedIn = True
             signup = True
+            return template("index", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName, checkUserData=checkUserData)
+            
+        else: 
+            return template("ErrorReg", userLoggedIn=userLoggedIn, sign_up=sign_up, userName=userName, checkUserData=checkUserData, errorReg=errorReg)
+        
+
 
             return template("index", userLoggedIn=userLoggedIn, signup=signup, username=username)
 
 @route("/", method="POST")
 def log_in():
+    global userName
 
-    global userLoggedIn
-    global username
-
+    
     try:
         logInName = getattr(request.forms, "logInName")
-        passwords = getattr(request.forms, "password2")
+        password2 = getattr(request.forms, "password2")
+        userName = logInName
 
         conn = psycopg2.connect(database = "am0986",
                                 user = 'am0986',
@@ -69,12 +124,28 @@ def log_in():
                                 port = '5432')
 
         cursor = conn.cursor()
-        cursor.execute(f'''SELECT username FROM user_info WHERE username = '{logInName}' ''')
-        usernameChecker = cursor.fetchone()[0]
+        cursor.execute('''SELECT username, p_word FROM user_info''')
+        listUserNames= cursor.fetchall()
 
-        cursor1 = conn.cursor()
-        cursor1.execute(f'''SELECT p_word FROM user_info WHERE p_word = '{passwords}' ''')
-        passwordChecker = cursor1.fetchone()[0]
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+
+
+        for namePword in listUserNames:
+            if (namePword == userName and password2):
+                
+    
+         
+                print("\nInloggad!")
+                global userLoggedIn
+                userLoggedIn = True
+            else:
+                print("Felaktigt inlogg")
+                userLoggedIn= False 
+            break
+            
 
     except (Exception, Error) as error:
         print("Inloggning misslyckades")
@@ -83,19 +154,15 @@ def log_in():
         print("-"*30)
 
     finally:
-        if logInName == usernameChecker and passwords == passwordChecker:
-            print("\nInloggad!")
-            userLoggedIn = True
-
-        else:
-            userLoggedIn = False
-            print("Felaktigt inlogg")
-
-        if (conn):
+        if userLoggedIn== True:
+            (conn)
             cursor.close()
             conn.close()
-
-            return template("index", userLoggedIn=userLoggedIn, username=logInName)
+            userLoggedIn = True
+            redirect("index", userLoggedIn=userLoggedIn, userName=logInName)
+        else: 
+            print("HEj hejjjjjjjjjj")
+            return template("ErrorReg", userLoggedIn=userLoggedIn, userName=logInName)
 
 @route("/")
 def user_logged_in():
@@ -105,14 +172,14 @@ def user_logged_in():
     if userLoggedIn == True:
         return template("index", userLoggedIn=True, signup=signup, username=username)
 
-    else:
-        return template ("index", userLoggedIn=False, signup=signup, username=username)
 
-@route("/racepage/<text>/")
+
+
+@route("/racepage/<text>")
 def race(text):
 
     if text == "beginner":
-        myFile = open("article/beginner.json", "r")
+        myFile= open("articles/beginner.json", "r")
         textToRace = myFile.read()
         TTR = json.loads(textToRace)
         myFile.close()
@@ -151,7 +218,9 @@ def user_profile():
     global username
     userLoggedIn = True 
 
-    return template("profile", userLoggedIn=userLoggedIn, username=username)
+    return template("profile", userLoggedIn=userLoggedIn, userName=userName)
+
+
 
 @route("/racetext/save/", method="POST")
 def save_racetext ():
@@ -176,6 +245,19 @@ def error(error):
     """
 
     return template("error")
+
+@route("/faq")
+def faq (): 
+    return template("faq")
+
+@route("/about")
+def about (): 
+    return template("about")
+
+@route("/static/<filename>")
+def static_files(filename):
+
+    return static_file(filename, root="static")
 
 
 run(host="127.0.0.1", port=8080, reloader=True, debug=True)
