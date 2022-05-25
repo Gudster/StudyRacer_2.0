@@ -45,43 +45,43 @@ def signup():
         cursor.close()
         conn.close()
 
-
-        for name in usernamesDatabase:
-            if (name != username):
-                
+        for index, tuple in enumerate(usernamesDatabase):
             
-                if len(username) < 4 or len(username) > 16: 
-                    print ("Felaktigt ifyllt användarnamn")
-                    errorReg=True 
-                    
-
-                elif len(password) <8: 
-                    print ("Fel längd på lösen!")
-                    errorReg=True 
-                
-
-
-                else:
-                    checkUserData = True 
-                    conn = psycopg2.connect(database="am0986",
+            element_one= tuple[0]
+            
+            print (element_one)
+            
+            if (element_one == username):
+                checkUserData = True 
+                conn = psycopg2.connect(database="am0986",
                                             user='am0986',
                                             password='j6uv3f3d',
                                             host='pgserver.mau.se',
                                             port='5432')
 
-                    conn.autocommit = True
-                    cursor = conn.cursor()
+                conn.autocommit = True
+                cursor = conn.cursor()
 
 
 
-                    cursor.execute(f'''INSERT INTO user_info(username, f_name, l_name, p_word, country)
-                    VALUES ('{username}', '{firstName}', '{lastName}', '{password}', '{country}')''')
+                cursor.execute(f'''INSERT INTO user_info(username, f_name, l_name, p_word, country)
+                VALUES ('{username}', '{firstName}', '{lastName}', '{password}', '{country}')''')
 
-                    conn.commit()
-                    print(f"\n{username}, {firstName}, {lastName}, {country} registrerad")
+                conn.commit()
+                print(f"\n{username}, {firstName}, {lastName}, {country} registrerad")
+            
+            elif len(username) < 4 or len(username) > 16: 
+                    print ("Felaktigt ifyllt användarnamn")
+                    errorReg=True 
+                    
 
+            elif len(password) <8: 
+                    print ("Fel längd på lösen!")
+                    errorReg=True
             else: 
+                errorReg= False 
                 checkUserData = False 
+                
             break       
 
     except (Exception, Error) as error:
