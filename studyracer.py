@@ -52,6 +52,21 @@ def signup():
             print (element_one)
             
             if (element_one == username):
+                errorReg= False 
+                checkUserData = False
+
+            
+            elif len(username) < 4 or len(username) > 16: 
+                    print ("Felaktigt ifyllt användarnamn")
+                    errorReg=True 
+                    checkUserData = False
+
+            elif len(password) <8: 
+                    print ("Fel längd på lösen!")
+                    errorReg=True
+                    checkUserData = False
+            else: 
+
                 checkUserData = True 
                 conn = psycopg2.connect(database="am0986",
                                             user='am0986',
@@ -69,18 +84,6 @@ def signup():
 
                 conn.commit()
                 print(f"\n{username}, {firstName}, {lastName}, {country} registrerad")
-            
-            elif len(username) < 4 or len(username) > 16: 
-                    print ("Felaktigt ifyllt användarnamn")
-                    errorReg=True 
-                    
-
-            elif len(password) <8: 
-                    print ("Fel längd på lösen!")
-                    errorReg=True
-            else: 
-                errorReg= False 
-                checkUserData = False 
                 
             break       
 
@@ -90,6 +93,8 @@ def signup():
         print(error)
         print("-"*30)
         checkUserData = False 
+        errorReg= False 
+
                     
     finally:
         if checkUserData == True: 
