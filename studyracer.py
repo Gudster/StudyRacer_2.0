@@ -3,6 +3,8 @@ import psycopg2
 from psycopg2 import Error
 from random import choice
 import json
+import re
+import os
 
 userLoggedIn = False
 signup = False

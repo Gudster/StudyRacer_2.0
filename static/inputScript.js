@@ -69,7 +69,6 @@ quoteInputElement.addEventListener('keyup', () => {
       correct = false
       inccorectCharacters = 1;
     }
-  
   })
 
   if (correct) { 
@@ -78,7 +77,6 @@ quoteInputElement.addEventListener('keyup', () => {
     localStorage.setItem('storeWPM', document.getElementById('wpmUpdater').innerHTML);
     localStorage.setItem('storeStroke', JSON.stringify(strokeCount));
     document.forms['myForm'].submit();
-
   }
 })
 
@@ -128,7 +126,6 @@ function submit_button_save() {
 
 document.getElementById('quoteInput').addEventListener('keydown', event=>{
 	if(event.code === 'Space'){
-		//countWords();
 	}
 });
 

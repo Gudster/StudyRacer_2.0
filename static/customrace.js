@@ -118,6 +118,7 @@ function submit_button_save() {
 	clearInterval(int);
 }
 
+//TA BORT I KODGRANSKNING
 document.getElementById('quoteInput').addEventListener('keydown', event=>{
 	if(event.code === 'Space'){
 		//countWords();
