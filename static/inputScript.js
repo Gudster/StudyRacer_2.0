@@ -27,7 +27,7 @@ let int = null;
 let quoteWords = [];
 let indexWord = 0;
 let completedWords = "";
-let strokeCount = "";
+let strokeCount = 1;
 
 let totalMin
 let totalSec
