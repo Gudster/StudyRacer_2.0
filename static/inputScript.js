@@ -27,7 +27,7 @@ let int = null;
 let quoteWords = [];
 let indexWord = 0;
 let completedWords = "";
-let strokeCount = 1;
+let strokeCount = "";
 
 let totalMin
 let totalSec
@@ -73,9 +73,9 @@ quoteInputElement.addEventListener('keyup', () => {
   })
 
   if (correct) { 
-    localStorage.setItem('storeMin', JSON.stringify(storeTotalMin));
-    localStorage.setItem('storeSec', JSON.stringify(storeTotalSec));
-    localStorage.setItem('storeWpm', JSON.stringify(storeTotalWpm));
+    localStorage.setItem('storeMin', JSON.stringify(min));
+    localStorage.setItem('storeSec', JSON.stringify(sec));
+    localStorage.setItem('storeWPM', document.getElementById('wpmUpdater').innerHTML);
     localStorage.setItem('storeStroke', JSON.stringify(strokeCount));
     document.forms['myForm'].submit();
 
@@ -122,10 +122,6 @@ inputValue.addEventListener('keypress', function (e) {
 });
 
 function submit_button_save() {
-
-  localStorage.setItem('appendMin', document.getElementById('min').innerHTML);
-  localStorage.setItem('appendSec', document.getElementById('sec').innerHTML);
-  localStorage.setItem('storeWPM', document.getElementById('wpmUpdater').innerHTML);
 
 	clearInterval(int);
 }

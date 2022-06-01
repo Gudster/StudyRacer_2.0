@@ -1,6 +1,6 @@
 // hämtar från local storage
-let totalSec = localStorage.getItem('appendSec');
-let totalMin = localStorage.getItem('appendMin');
+let totalSec = localStorage.getItem('storeSec');
+let totalMin = localStorage.getItem('storeMin');
 let wpmElement = localStorage.getItem('storeWPM');
 let charLengthAcc = localStorage.getItem('charLength');
 let strokeAcc = localStorage.getItem('storeStroke');

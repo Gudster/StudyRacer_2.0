@@ -21,6 +21,7 @@ def signup():
     global errorReg 
 
 
+
     try:
         username = getattr(request.forms, "username")
         firstName = getattr(request.forms, "firstName")
@@ -45,46 +46,43 @@ def signup():
         cursor.close()
         conn.close()
 
-        for index, tuple in enumerate(usernamesDatabase):
-            
-            element_one= tuple[0]
-            
-            print (element_one)
-            
-            if (element_one == username):
-                errorReg= False 
-                checkUserData = False
 
+        for name in usernamesDatabase:
+            if (name != username):
+                
             
-            elif len(username) < 4 or len(username) > 16: 
+                if len(username) < 4 or len(username) > 16: 
                     print ("Felaktigt ifyllt användarnamn")
                     errorReg=True 
-                    checkUserData = False
+                    
 
-            elif len(password) <8: 
+                elif len(password) <8: 
                     print ("Fel längd på lösen!")
-                    errorReg=True
-                    checkUserData = False
-            else: 
+                    errorReg=True 
+                
 
-                checkUserData = True 
-                conn = psycopg2.connect(database="am0986",
+
+                else:
+                    checkUserData = True 
+                    conn = psycopg2.connect(database="am0986",
                                             user='am0986',
                                             password='j6uv3f3d',
                                             host='pgserver.mau.se',
                                             port='5432')
 
-                conn.autocommit = True
-                cursor = conn.cursor()
+                    conn.autocommit = True
+                    cursor = conn.cursor()
 
 
 
-                cursor.execute(f'''INSERT INTO user_info(username, f_name, l_name, p_word, country)
-                VALUES ('{username}', '{firstName}', '{lastName}', '{password}', '{country}')''')
+                    cursor.execute(f'''INSERT INTO user_info(username, f_name, l_name, p_word, country)
+                    VALUES ('{username}', '{firstName}', '{lastName}', '{password}', '{country}')''')
 
-                conn.commit()
-                print(f"\n{username}, {firstName}, {lastName}, {country} registrerad")
-                
+                    conn.commit()
+                    print(f"\n{username}, {firstName}, {lastName}, {country} registrerad")
+
+            else: 
+                checkUserData = False 
             break       
 
     except (Exception, Error) as error:
@@ -93,8 +91,6 @@ def signup():
         print(error)
         print("-"*30)
         checkUserData = False 
-        errorReg= False 
-
                     
     finally:
         if checkUserData == True: 
@@ -194,12 +190,32 @@ def race(text):
         myFile.close()
 
     else:    
-        myFile = open(f"articles/{text}.json", "r")
+        myFile = open(f"articles/usertext.json", "r")
         textToRace = myFile.read()
         TTR = json.loads(textToRace)
         myFile.close() 
 
     return template("racepage", textFile=TTR, userLoggedIn=userLoggedIn)
+
+@route("/customracepage/usertext/")
+def custom_race():
+    myFile = open(f"articles/usertext.json", "r")
+    textToRace = myFile.read()
+    TTR = json.loads(textToRace)
+    myFile.close()
+
+    return template("customracepage", textFile=TTR, userLoggedIn=userLoggedIn)
+
+@route("/racetext/save/", method="POST")
+def save_racetext ():
+
+    raceText = str(request.forms.get("userRaceText"))
+
+    myFile = open("articles/usertext.json", "w")
+    myFile.write(json.dumps(raceText))
+    myFile.close()
+
+    redirect("/customracepage/usertext/")
 
 @route("/logout/")
 def logout_html():
@@ -217,16 +233,6 @@ def user_profile():
 
     return template("profile", userLoggedIn=userLoggedIn, username=username)
 
-@route("/racetext/save/", method="POST")
-def save_racetext ():
-
-    raceText = str(request.forms.get("userRaceText"))
-
-    myFile = open("articles/usertext.json", "w")
-    myFile.write(json.dumps(raceText))
-    myFile.close()
-
-    redirect("/racepage/usertext/")
 
 @route("/result/", method="POST", userLoggedIn=userLoggedIn)
 def race_text_to_list():
@@ -249,13 +255,13 @@ def faq ():
 def about (): 
     return template("about",  userLoggedIn=userLoggedIn, userName=username)
 
-@error(404)
-def error404(error):
+@error()
+def error(error):
     """
-    #Hanterar: Error 404 filen hittades inte.
+    Hanterar: Error 404 filen hittades inte.
     """
 
-    return template("error", userLoggedIn=userLoggedIn, errorLogin=errorLogin)
+    return template("error")
 
 @route("/static/<filename>")
 def static_files(filename):
