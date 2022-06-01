@@ -73,10 +73,10 @@ quoteInputElement.addEventListener('keyup', () => {
   })
 
   if (correct) { 
-    localStorage.setItem('appendMin', document.getElementById('min').innerHTML);
-    localStorage.setItem('appendSec', document.getElementById('sec').innerHTML);
-    localStorage.setItem('storeWPM', document.getElementById('wpmUpdater').innerHTML);
-    localStorage.setItem('storeStroke', JSON.stringify(strokeCount))
+    localStorage.setItem('storeMin', JSON.stringify(storeTotalMin));
+    localStorage.setItem('storeSec', JSON.stringify(storeTotalSec));
+    localStorage.setItem('storeWpm', JSON.stringify(storeTotalWpm));
+    localStorage.setItem('storeStroke', JSON.stringify(strokeCount));
     document.forms['myForm'].submit();
 
   }

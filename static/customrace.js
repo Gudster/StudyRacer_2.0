@@ -2,10 +2,12 @@
 // https://github.com/WebDevSimplified/JS-Speed-Typing-Game/blob/master/script.js
 'USE STRICT'
 
-const RANDOM_QUOTE_API_URL = require('./articles/usertext.json')
+const RANDOM_QUOTE_API_URL = document.getElementById('quoteGet').innerHTML
 const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer2')
+
+console.log(RANDOM_QUOTE_API_URL)
 
 
 // Sparar tid i olika variabler
@@ -72,22 +74,17 @@ quoteInputElement.addEventListener('keyup', () => {
   })
 
   if (correct) { 
-    localStorage.setItem('appendMin', document.getElementById('min').innerHTML);
-    localStorage.setItem('appendSec', document.getElementById('sec').innerHTML);
-    localStorage.setItem('storeWPM', document.getElementById('wpmUpdater').innerHTML);
+    localStorage.setItem('storeMin', JSON.stringify(storeTotalMin));
+    localStorage.setItem('storeSec', JSON.stringify(storeTotalSec));
+    localStorage.setItem('storeWpm', JSON.stringify(storeTotalWpm));
+    localStorage.setItem('storeStroke', JSON.stringify(strokeCount));
     document.forms['myForm'].submit();
 
   }
 })
 
-function getRandomQuote() {
-  return fetch(RANDOM_QUOTE_API_URL)
-    .then(response => response.json())
-    .then(data => data.content)
-}
-
-async function renderNewQuote() {
-  const quote = await getRandomQuote();
+function renderNewQuote() {
+  const quote = RANDOM_QUOTE_API_URL
   quoteWords = quote.split(' ');
   totalCharacterLenght = quote.split('').length;
   console.log(totalCharacterLenght)

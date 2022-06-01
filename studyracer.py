@@ -222,7 +222,7 @@ def save_racetext ():
 
     raceText = str(request.forms.get("userRaceText"))
 
-    myFile=open("articles/usertext.json", "w")
+    myFile = open("articles/usertext.json", "w")
     myFile.write(json.dumps(raceText))
     myFile.close()
 
