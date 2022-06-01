@@ -7,6 +7,7 @@ const quoteDisplayElement = document.getElementById('quoteDisplay')
 const quoteInputElement = document.getElementById('quoteInput')
 const timerElement = document.getElementById('timer2')
 
+console.log(RANDOM_QUOTE_API_URL)
 
 // Sparar tid i olika variabler
 let miliSec = 00;
@@ -91,7 +92,6 @@ async function renderNewQuote() {
   const quote = await getRandomQuote();
   quoteWords = quote.split(' ');
   totalCharacterLenght = quote.split('').length;
-  console.log(totalCharacterLenght)
   quoteDisplayElement.innerHTML = ''
   quote.split('').forEach(character => {
     const characterSpan = document.createElement('span')
