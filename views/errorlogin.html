@@ -1,18 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv" class="h-100">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">        
         <link href="/static/style.css" rel="stylesheet" type="text/css" />
+        <link rel="icon" type="image/x-icon" href="/static/Icon_SR.ico">
         <title>StudyRacer</title>
     </head>
 
-    
     <body class="bg-dark d-flex flex-column h-100">
         <header id="headerbg" class="p-3 mb-3">
             <div class="container">
@@ -49,44 +46,21 @@
             </div>
         </header>
 
+        % if errorlogin == False: 
+        <div id="resultbg" class="container py-3 mt-5 col-md-9 col-lg-7 col-xl-6 rounded shadow-lg">
+            <div class="row justify-content-center">
+                <div class="text-white">
 
-            <div id="resultbg" class="container py-3 mt-5 col-md-9 col-lg-7 col-xl-6 rounded shadow-lg">
-                <div class="row justify-content-center">
-                    <div class="text-white">
+                    <h4>Wrong username or password!</h4>
+                    <p> Please try again</p>
 
-                        <h2>FAQ:</h2>
-                        
-						<h3>What is StudyRacer about?</h3>
-                        <p>StudyRacer is about learning your texts in an innovative and fun way. 
-                            Instead of just reading a text that you want to learn you make a race out of it. 
-                            Make a race out of a text of your choice and challenge yourself to write it as fast as possible and with no mistakes. 
-                            You’re killing to birds with one stone -  You will learn and remember the text easier (because of the use of many cognitive skills) AND you will get better at speed writing. 
-                        </p>
-                        
-                        <hr class="border-primary border-10 opacity-75 text-warning">
-                        <br>
-						<h3>How do I use StudyRacer?</h3>
-						<p> You can use StudyRacer in two different ways, either by racing an existing text or create your own racetext with a text of your choice. 
-                            When racing an existing text the main focus is to get your race skills up (writing both fast AND correct) to accomplish this you can choose from three different levels, beginner, novice and master. 
-                            If you choose to create your own racetext you simply just copy and paste your chosen text into the “create race text”-box. But be aware, you need to have an account to do this and the racetext can’t be more than 3500 letters! 
-
-                            You finish the race by enter the last word correctly. After the race you will be able to see your results and if you are logged in to your account your result will be saved to your profile  
-						</p>
-                         <hr class="border-primary border-10 opacity-75 text-warning">
-                        <br>
-						<h3>Do I need an account to participate? </h3>
-						<p>You don’t need an account to race an existing text. 
-                            But to be able to create your own race texts and save your results an account is necessary. 
-                        </p>
-
-						
-
-
-
+                    <div class="d-flex justify-content-start">
+                        <a id="submitbutton" class="btn btn-warning text-black mt-1" href="/">Try again</a>                 
                     </div>
                 </div>
             </div>
         </div>
+        % end
 
         <footer id="footer-bottom" class="footer mt-auto py-1 border-top">
             <div class="container">
@@ -99,8 +73,9 @@
             </div>
         </footer>
 
+        
+    
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <script src="/scripts/script.js"></script>
-    </body>
+        <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
 
-</html>
+    </body>    
