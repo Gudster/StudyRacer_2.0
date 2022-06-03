@@ -1,4 +1,5 @@
 ''' Importerar bottle, psycopg2 och JSON'''
+from webbrowser import get
 from bottle import redirect, route, run, error, template, request, static_file, redirect
 import psycopg2
 from psycopg2 import Error
@@ -244,7 +245,7 @@ def error(error):
 
     return template("error")
 
-@route("/static/<filename>/")
+@route("/static/<filename>")
 def static_files(filename):
     ''' Returnerar den statiska mappen '''
 
