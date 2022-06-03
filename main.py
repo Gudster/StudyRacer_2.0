@@ -1,5 +1,4 @@
 ''' Importerar bottle, psycopg2 och JSON'''
-from webbrowser import get
 from bottle import redirect, route, run, error, template, request, static_file, redirect
 import psycopg2
 from psycopg2 import Error
