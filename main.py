@@ -54,12 +54,13 @@ def signup():
             
                 if len(username) < 4 or len(username) > 16: 
                     print ("Felaktigt ifyllt användarnamn")
-                    errorReg=True   
+                    errorReg=True 
+                    checkUserData = False
 
                 elif len(password) <8: 
                     print ("Fel längd på lösen!")
                     errorReg=True 
-                
+                    checkUserData = False
                 else:
                     checkUserData = True 
                     conn = psycopg2.connect(database = 'am0986',
@@ -79,6 +80,7 @@ def signup():
 
             else: 
                 checkUserData = False 
+                errorReg = False 
             break       
 
     except (Exception, Error) as error:
