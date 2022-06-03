@@ -229,13 +229,13 @@ def race_text_to_list():
     return template("result", userLoggedIn=userLoggedIn)
 
 @route("/faq/")
-def faq (): 
+def faq ():
     ''' Returnerar faqsidan '''
     
     return template("faq", userLoggedIn=userLoggedIn, userName=username)
 
 @route("/about/")
-def about (): 
+def about ():
     ''' Returnerar aboutsidan '''
     
     return template("about",  userLoggedIn=userLoggedIn, userName=username)
